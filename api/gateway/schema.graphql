@@ -1,0 +1,120 @@
+
+schema
+  @core(feature: "https://specs.apollo.dev/core/v0.2"),
+  @core(feature: "https://specs.apollo.dev/join/v0.1", for: EXECUTION)
+{
+  query: Query
+  mutation: Mutation
+}
+
+directive @core(as: String, feature: String!, for: core__Purpose) repeatable on SCHEMA
+
+directive @join__field(graph: join__Graph, provides: join__FieldSet, requires: join__FieldSet) on FIELD_DEFINITION
+
+directive @join__graph(name: String!, url: String!) on ENUM_VALUE
+
+directive @join__owner(graph: join__Graph!) on INTERFACE | OBJECT
+
+directive @join__type(graph: join__Graph!, key: join__FieldSet) repeatable on INTERFACE | OBJECT
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input CreateUserInput {
+  email: String!
+  firstname: String!
+  lastname: String!
+  role: UserRole
+  status: UserStatus
+  teamId: String!
+}
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  """Create new user details of a user"""
+  createUser(input: CreateUserInput!): User! @join__field(graph: MAIN)
+
+  """Login with credentials"""
+  login(input: LoginInput!): AuthPayload! @join__field(graph: MAIN)
+
+  """Safety measure to close current session"""
+  logout: User! @join__field(graph: MAIN)
+
+  """Request tokens renewal with existing cookie"""
+  refreshToken: AuthPayload! @join__field(graph: MAIN)
+
+  """Update details of a user (admin only)"""
+  updateUser(input: UpdateUserInput!, where: UserWhereUniqueInput!): User! @join__field(graph: MAIN)
+}
+
+type Query {
+  """Return self information"""
+  me: User! @join__field(graph: MAIN)
+
+  """Return user information"""
+  user(where: UserWhereUniqueInput!): User! @join__field(graph: MAIN)
+}
+
+input UpdateUserInput {
+  role: UserRole
+  status: UserStatus
+}
+
+type User
+  @join__owner(graph: MAIN)
+  @join__type(graph: MAIN, key: "id")
+{
+  createdAt: DateTime! @join__field(graph: MAIN)
+  email: String! @join__field(graph: MAIN)
+  firstname: String! @join__field(graph: MAIN)
+  id: ID! @join__field(graph: MAIN)
+  lastname: String! @join__field(graph: MAIN)
+  role: UserRole! @join__field(graph: MAIN)
+  status: UserStatus! @join__field(graph: MAIN)
+  updatedAt: DateTime! @join__field(graph: MAIN)
+}
+
+enum UserRole {
+  ADMIN
+  ANALYST
+  CONSUMER
+}
+
+enum UserStatus {
+  ACTIVE
+  PENDING
+  SUSPENDED
+}
+
+input UserWhereUniqueInput {
+  id: ID!
+}
+
+enum core__Purpose {
+  """
+  `EXECUTION` features provide metadata necessary to for operation execution.
+  """
+  EXECUTION
+
+  """
+  `SECURITY` features provide metadata necessary to securely resolve fields.
+  """
+  SECURITY
+}
+
+scalar join__FieldSet
+
+enum join__Graph {
+  MAIN @join__graph(name: "main" url: "http://localhost:4001/graphql")
+}

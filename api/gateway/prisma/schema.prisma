@@ -1,0 +1,197 @@
+// Help: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  emitOnly = "enums"
+}
+
+model Subscriptions {
+    id               String                @id @default(cuid())
+    organizationId   String
+    organization     Organization         @relation(fields: [organizationId], references: [id])
+    productId        String
+    status           SubscriptionStatus    @default(PENDING)
+    updatedAt        DateTime              @default(now()) @updatedAt
+    createdAt        DateTime              @default(now())
+    endDate          DateTime              @default(now())
+}
+
+model Organization {
+  id                  String                @id @default(cuid())
+  name                String                @unique
+  address             String?
+  phone               String?
+  webPage             String?
+  description         String?
+  thumb               String?
+  status              OrganizationStatus    @default(PENDING)
+  subscriptions       Subscriptions[]       
+  teams               Teams[]       
+  updatedAt           DateTime              @default(now()) @updatedAt
+  createdAt           DateTime              @default(now())
+  superAdminId        String
+}
+
+model User {
+  id                  String                @id @default(cuid())
+  email               String                @unique
+  firstname           String
+  lastname            String
+  password            String                @default("")
+  role                UserRole              @default(CONSUMER)
+  teams               UserOnTeams[]
+  status              UserStatus            @default(ACTIVE)
+  feedbacks           Feedback[]
+  systemAlerts        SystemAlerts[]
+  notifications       Notification[]        @relation("TargetUser")
+  updatedAt           DateTime              @default(now()) @updatedAt
+  createdAt           DateTime              @default(now())
+}
+model Payments {
+  id                  String                @id @default(cuid())
+  subscriptionId      String
+  status              PaymentStatus         @default(PENDING)
+  updatedAt           DateTime              @default(now()) @updatedAt
+  createdAt           DateTime              @default(now())
+  paymentDate         DateTime?             
+}
+
+model UserOnTeams {
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamId        String
+  team          Teams           @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  role          TeamsUserRole   @default(CONSUMER)
+  updatedAt     DateTime        @default(now()) @updatedAt
+  createdAt     DateTime        @default(now())
+  accessedAt    DateTime        @default(now())
+
+  @@id([userId, teamId])
+}
+
+model Teams {
+    id               String                @id @default(cuid())
+    name             String
+    description      String?
+    thumb            String?
+    organizationId   String
+    organization     Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+    status           TeamStatus            @default(ACTIVE)
+    users            UserOnTeams[]
+    accessList       Json[]
+    updatedAt        DateTime              @default(now()) @updatedAt
+    createdAt        DateTime              @default(now())
+    endDate          DateTime              @default(now())
+}
+
+model Feedback {
+  id        String       @id @default(cuid())
+  message   String
+  type      FeedbackType
+  rate      Int?
+  url       String?
+  creatorId String
+  creator   User         @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  updatedAt DateTime     @default(now()) @updatedAt
+  createdAt DateTime     @default(now())
+}
+
+model Notification {
+  id            String           @id @default(cuid())
+  title         String
+  content       String
+  type          NotificationType @default(INFO)
+  userId        String?
+  itemId        String?
+  extraParams   Json[]
+  user          User?            @relation("TargetUser", fields: [userId], references: [id], onDelete: Cascade)
+  seenAt        DateTime?
+  expiration    DateTime?
+  updatedAt     DateTime         @default(now()) @updatedAt
+  createdAt     DateTime         @default(now())
+}
+
+model SystemAlerts {
+  id           String           @id @default(cuid())
+  title        String
+  description  String           @default("")
+  url          String           @default("")
+  disableLogin Boolean          @default(false)
+  type         SystemAlertsType @default(INFO)
+  creatorId    String?
+  creator      User?            @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  startDate    DateTime
+  endDate      DateTime
+  updatedAt    DateTime         @default(now()) @updatedAt
+  createdAt    DateTime         @default(now())
+}
+
+enum FeedbackType {
+  COMMENT
+  ISSUE
+  IDEA
+  OTHER
+}
+
+enum PaymentStatus {
+  COMPLETED
+  CANCELLED
+  PENDING
+  ONHOLD
+}
+
+enum NotificationType {
+  INFO
+  WARNING
+  ERROR
+}
+
+enum OrganizationStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+enum SubscriptionStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+enum TeamStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+}
+
+
+enum TeamsUserRole {
+  HEAD
+  CONSUMER
+}
+
+enum UserRole {
+  ADMIN
+  ANALYST
+  CONSUMER
+}
+
+enum SystemAlertsType {
+  INFO
+  WARNING
+  ERROR
+}
