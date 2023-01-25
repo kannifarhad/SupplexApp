@@ -33,7 +33,7 @@ export const ProtectedRoute = ({
 
   if(errorType === "FORBIDDEN")
     return  <AccessDeniedNotice />;
-
+  console.log('me',me)
   //Role Validation
   if(userLevel && me?.role && !userLevel.includes('CONSUMER') && !userLevel.includes(me?.role)){
     return <AccessDeniedNotice /> 

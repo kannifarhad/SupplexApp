@@ -1,17 +1,18 @@
 import React from 'react';
-import CalendarWidget from '../../components//Widgets/CalendarWidget';
-import { DashBoardInfoBlock } from '../../components//Blocks';
+// import CalendarWidget from '../../components//Widgets/CalendarWidget';
+import { DashBoardInfoBlock } from '../../components/Molecules';
 import { Grid } from '@mui/material';
-import { Helmet } from 'react-helmet';
-import { Translate, TranslateFunc } from '../../utils';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation, Trans } from "react-i18next";
 import Clock from './Blocks/Clock';
 
 export default function Dashboard() {
-  const { translateWord } = TranslateFunc();
+  const { t } = useTranslation();
+  console.log('rerender');
   return (
     <>
       <Helmet>
-        <title>{`${translateWord("Main Panel")} | Cronus Dashboard`}</title>
+        <title>{`${t("Main Panel")} | Supplex Dashboard`}</title>
       </Helmet>
 
 
@@ -23,40 +24,40 @@ export default function Dashboard() {
               <Grid item xs={6} style={{"padding":"0px 10px"}}>
                 <DashBoardInfoBlock
                   mainIcon="fad fa-newspaper"
-                  title={<Translate>Published Posts</Translate>}
+                  title={<Trans>Published Posts</Trans>}
                   description="205"
                   footerIcon="icon-link"
-                  foooterText={<Translate>View All Posts</Translate>}
+                  foooterText={<Trans>View All Posts</Trans>}
                   color="yellow"
                 />
               </Grid>
               <Grid item xs={6} style={{"padding":"0px 10px"}}>
                 <DashBoardInfoBlock
                   mainIcon="fad fa-folder-tree"
-                  title={<Translate>Post Categories</Translate>}
+                  title={<Trans>Post Categories</Trans>}
                   description="20"
                   footerIcon="icon-link"
-                  foooterText={<Translate>View All Post Categories</Translate>}
+                  foooterText={<Trans>View All Post Categories</Trans>}
                   color="green"
                 />
               </Grid>
               <Grid item xs={6} style={{"padding":"0px 10px"}}>
                 <DashBoardInfoBlock
                   mainIcon="fad fa-users"
-                  title={<Translate>Users</Translate>}
+                  title={<Trans>Users</Trans>}
                   description="5"
                   footerIcon="icon-link"
-                  foooterText={<Translate>View All Users</Translate>}
+                  foooterText={<Trans>View All Users</Trans>}
                   color="red"
                 />
               </Grid>
               <Grid item xs={6} style={{"padding":"0px 10px"}}>
                 <DashBoardInfoBlock
                   mainIcon="fad fa-server"
-                  title={<Translate>Used Space</Translate>}
+                  title={<Trans>Used Space</Trans>}
                   description="49/50 GB"
                   footerIcon="icon-warning"
-                  foooterText={<Translate>For increasing server space contact administrator</Translate>}
+                  foooterText={<Trans>For increasing server space contact administrator</Trans>}
                   color="blue"
                 />
               </Grid>
@@ -69,12 +70,12 @@ export default function Dashboard() {
           </Grid>
 
           <Grid item xs={6} style={{"padding":"0px 10px"}}>
-            <DashBoardInfoBlock
+            {/* <DashBoardInfoBlock
               mainIcon="fad fa-calendar-alt"
-              title={<Translate>Daily Calendar & Tasks</Translate>}
+              title={<Trans>Daily Calendar & Tasks</Trans>}
               description="3 Tasks"
               footerIcon="fas fa-calendar"
-              foooterText={<Translate>View All Tasks</Translate>}
+              foooterText={<Trans>View All Tasks</Trans>}
               color="yellow"
               Component={() => {
                 return (
@@ -85,7 +86,7 @@ export default function Dashboard() {
                   />
                 );
               }}
-            />
+            /> */}
           </Grid>
         
         </Grid>

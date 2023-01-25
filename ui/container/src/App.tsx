@@ -11,7 +11,7 @@ import Login from './pages/Dashboard/AuthPage';
 import { ProtectedRoute, PublicRoute } from './routes/RouteTypes';
 import DynamicImport from './components/Molecules/DynamicImport';
 import NotFound from './pages/Dashboard/Dump';
-
+    
 const App = () => {
     return (
         <ApolloProvider client={apolloClient}>

@@ -6,7 +6,7 @@ type IProps = {
   componentProps?: object;
 };
 
-const DynamicImport: React.FC<IProps> = (props) => {
+export const DynamicImport: React.FC<IProps> = (props) => {
   const Component = props.component;
   return (
     <Suspense

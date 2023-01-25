@@ -1,22 +1,4 @@
-const TOKEN_KEY = 'jwtToken';
 const MENU_KEY = 'menuShow';
-const SELECTED_LANG_KEY = 'selectedLang';
-
-export const isLogin = () => {
-  console.log(TOKEN_KEY, window.localStorage.getItem(TOKEN_KEY));
-  if (window.localStorage.getItem(TOKEN_KEY)) {
-      return window.localStorage.getItem(TOKEN_KEY);
-  }
-  return false;
-}
-
-export const setLoginToken = (token) => {
-  window.localStorage.setItem(TOKEN_KEY, token);
-}
-
-export const unsetLoginToken = () => {
-  window.localStorage.removeItem(TOKEN_KEY);
-}
 
 export const getMenuShow = () => {
   if (window.localStorage.getItem(MENU_KEY)) {
@@ -29,19 +11,6 @@ export const getMenuShow = () => {
 export const setMenuShow = (status) => {
   window.localStorage.setItem(MENU_KEY, status);
 }
-
-export const getSelectedLang = () => {
-  return window.localStorage.getItem(SELECTED_LANG_KEY) ? window.localStorage.getItem(SELECTED_LANG_KEY) : null
-}
-
-export const setSelectedLang = (lang) => {
-  window.localStorage.setItem(SELECTED_LANG_KEY, lang);
-}
-
-
-
-
-
 
 
 export function removeCSSClass(ele, cls) {
@@ -74,10 +43,6 @@ export const formatBytes = (bytes, decimals) => {
     sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
     i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-};
-
-export const limitText = (text, limit) => {
-  return text ? `${text.substring(0, limit)}${text.length > limit ? '...' : ''}` : '';
 };
 
 export const searchTree = (items, value) => {

@@ -1,26 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import Login from './Blocks/Login';
-import { Helmet } from 'react-helmet';
-import { Translate, TranslateFunc } from '../../utils';
-
-// import socketIOClient from "socket.io-client";
-// const ENDPOINT = "http://localhost:3131";
+import Login from './Blocks/Login';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation, Trans } from "react-i18next";
 
 export default function AuthPage() {
-  //   useEffect(() => {
-  //     console.log('useEffect');
-  //     const socket = socketIOClient(ENDPOINT);
-  //     socket.on("item", data => {
-  //         console.log('SOCKETTTT',data);
-  //     });
-  // }, []);
-  const { translateWord } = TranslateFunc();
-
+  const { t } = useTranslation();
   return (
     <>
       <Helmet>
-        <title>{`${translateWord('Login Panel')} | Cronus Dashboard`}</title>
+        <title>{`${t('Login Panel')} | Supplex Dashboard`}</title>
       </Helmet>
 
       <div className="wrapper loginWrap">
@@ -32,27 +21,27 @@ export default function AuthPage() {
             className="bubbles"
             style={{ backgroundImage: `url('/static/img/loginBubbles2.svg')` }}
           ></div>
-          <div className="cronusInfoWrap">
+          <div className="supplexInfoWrap">
             <div className="iconBlock">
               <Link to="/">
                 <object type="image/svg+xml" data={'/static/img/logos/lineIcon.svg'}>
-                <Translate>Your browser does not support SVGs</Translate>
+                <Trans>Your browser does not support SVGs</Trans>
                 </object>
               </Link>
             </div>
 
-            <div className="cronusInfo">
-              <h3><Translate>Welcome to Cronus!</Translate></h3>
-              <p><Translate>The ultimate React, NodeJs and PostgerSQL admin system for next generation web apps.</Translate>
+            <div className="supplexInfo">
+              <h3><Trans>Welcome to Supplex!</Trans></h3>
+              <p><Trans>The dashboard is easy to use and provides a wide range of features for businesses of all sizes. Features include data analytics, reporting, and automated processes to help you manage your business more effectively. The software is also designed to be secure and reliable, with regular updates and support.</Trans>
               </p>
             </div>
 
-            <div className="cronusInfoFooter">
-              <div className="copyright"> &copy; 2020 Cronus PERN </div>
+            <div className="supplexInfoFooter">
+              <div className="copyright"> &copy; 2020 Supplex  </div>
               <div>
-                <Link to="/terms"> <Translate>Privacy </Translate></Link>
-                <Link to="/terms"> <Translate>Legal</Translate> </Link>
-                <Link to="/terms"> <Translate>Contact</Translate> </Link>
+                <Link to="/terms"> <Trans>Privacy</Trans></Link>
+                <Link to="/terms"> <Trans>Legal</Trans> </Link>
+                <Link to="/terms"> <Trans>Contact</Trans> </Link>
               </div>
             </div>
           </div>
@@ -60,7 +49,7 @@ export default function AuthPage() {
         {/* loginInfo end */}
 
         <div className="loginPanel">
-          {/* <Login /> */}
+          <Login />
         </div>
       </div>
     </>

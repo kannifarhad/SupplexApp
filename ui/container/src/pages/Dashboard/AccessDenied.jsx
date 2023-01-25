@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { Translate, TranslateFunc } from '../../utils';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation, Trans } from "react-i18next";
 import image404 from './Blocks/Assets/images/403.svg';
 import { Button } from '../../components/Elements';
 import { Box } from '@mui/material';
 
 export default function AccessDenied() {
-  const { translateWord } = TranslateFunc();
+  const { t } = useTranslation();
   const history = useHistory();
   return (
     <>
      <Helmet>
-        <title>{`${translateWord('Access Denied')} | Cronus Dashboard`}</title>
+        <title>{`${t('Access Denied')} | Supplex Dashboard`}</title>
       </Helmet>
 
       <div className="row wrapper">
@@ -26,11 +26,11 @@ export default function AccessDenied() {
                 <img alt="access denied" src={image404} />
               </Box>
               <Box className="texts">
-                <h2><Translate>This page exists but You don't have access to see it. You have to be in appropriate user group to get page.</Translate></h2>
-                <p><Translate>Please contact to administrator to get access.</Translate></p>
+                <h2><Trans>This page exists but You don't have access to see it. You have to be in appropriate user group to get page.</Trans></h2>
+                <p><Trans>Please contact to administrator to get access.</Trans></p>
                 <Button 
                     icon={<span className="fas fa-tachometer-alt-fastest"/>}
-                    title={<Translate>Go to Main Dashboard</Translate>}
+                    title={<Trans>Go to Main Dashboard</Trans>}
                     onClick={()=> history.push('/')}
                 />
                 <Link to="/"></Link>

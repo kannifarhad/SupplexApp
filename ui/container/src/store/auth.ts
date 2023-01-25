@@ -28,10 +28,13 @@ const initialState: AuthState = {
 export const loginWithCredentials = createAsyncThunk(
   "auth/loginWithCredentials",
   async (variables: LoginMutationVariables) => {
+    console.log('loginWithCredentials', variables);
+    console.log('client', client);
     const { data } = await client.mutate<LoginMutation>({
       mutation: LOGIN,
       variables,
     });
+    console.log(data)
     return data!.login;
   }
 );
@@ -45,7 +48,7 @@ export const authSlice = createSlice({
     builder.addMatcher(
       isPending(loginWithCredentials),
       (state, action) => {
-        state.loading = true;
+        // state.loading = true;
       }
     );
     builder.addMatcher(

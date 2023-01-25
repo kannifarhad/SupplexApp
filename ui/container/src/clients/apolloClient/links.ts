@@ -11,6 +11,8 @@ import {
 import store from "../../store";
 import { logout } from "../../store/auth";
 import { getAuthentication, setTransactionId } from "./auth";
+import { WebSocketLink } from "@apollo/client/link/ws";
+
 import { setError } from "../../store/error";
 import * as Sentry from "@sentry/react";
 import React from "react";
@@ -26,7 +28,18 @@ export const httpLink = createUploadLink({
   },
 }) as unknown as ApolloLink;
 
-
+export const wsLink = new WebSocketLink({
+  uri: supplexUrl.replace("http", "ws"),
+  options: {
+    lazy: true,
+    reconnect: true,
+    connectionParams: async () => {
+      return {
+        Authorization: await getAuthentication(),
+      };
+    },
+  },
+});
 
 export const authLink = setContext(async (_, { headers }) => {
   // return the headers to the context so httpLink can read them
@@ -42,6 +55,7 @@ export const authLink = setContext(async (_, { headers }) => {
 
 export const errorLink = onError(
   ({ networkError, graphQLErrors, operation, response }) => {
+    console.log('APOLLO ERROR')
     const ignoredOperations = ["Logout"];
 
     // Selective error skipping
@@ -71,12 +85,15 @@ export const errorLink = onError(
                 errorContent: err.extensions,
               })
             );
+            console.log("Forbidden", err.message);
             // notification.error({
             //   message: "Forbidden",
             //   description: err.message,
             // });
             break;
           case "INACTIVE":
+            console.log("INACTIVE", err.message);
+
             // notification.warning({
             //   duration: 0,
             //   message: "Inactive Account",
@@ -112,19 +129,21 @@ export const errorLink = onError(
             //     // eventId ? `Event ID: ${eventId}` : undefined,
             //   ],
             // });
+            console.log("default", code, err.message);
+
             break;
         }
       }
     } else if (networkError) {
-      console.log("operation", operation);
-      Sentry.captureException(new Error(networkError.message), {
-        tags: {
-          operationName: operation.operationName,
-        },
-        extra: {
-          ...operation,
-        },
-      });
+      console.log("Network Error", networkError.message);
+      // Sentry.captureException(new Error(networkError.message), {
+      //   tags: {
+      //     operationName: operation.operationName,
+      //   },
+      //   extra: {
+      //     ...operation,
+      //   },
+      // });
       // notification.error({
       //   message: "Network Error",
       //   description: networkError.message,

@@ -17,16 +17,13 @@ export const slice = createSlice({
   initialState,
   reducers: {
     openSidebar(state) {
-      state.sidebarCollapsed = false;
+      state.sidebarCollapsed = true;
     },
     closeSidebar(state) {
-      state.sidebarCollapsed = true;
+      state.sidebarCollapsed = false;
     },
   },
   extraReducers: (builder) => {
-    // builder.addCase(sampleAction.pending, (state, action) => {
-    //     // state.loading = true;
-    // });
   },
 });
 

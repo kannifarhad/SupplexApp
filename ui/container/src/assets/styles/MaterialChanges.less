@@ -1,0 +1,293 @@
+:focus {
+  outline: none !important;
+}
+.form-group {
+  padding-bottom: 10px;
+}
+
+/* MATERIAL UI EDITS*/
+.MuiFormControlLabel-label {
+  font-size: 0.8em !important;
+}
+.MuiMenu-list {
+  padding: 0px !important;
+}
+.cronSelect {
+  label {
+    background: #fff;
+    padding: 0px 5px;
+  }
+}
+
+.formTextSimple {
+  input {
+    padding: 0.8rem 0;
+  }
+  .MuiInputLabel-formControl {
+    transform: translate(0, 1.95rem) scale(1);
+  }
+  .MuiInputLabel-shrink {
+    transform: translate(0, 10px) scale(0.75);
+  }
+}
+
+.MuiTypography-root {
+  font-family: 'Montserrat' !important;
+}
+
+.MuiSelect-select:focus {
+  background: @mainLightColor !important;
+}
+
+.MuiFormControl-root {
+  color: @headlineColor;
+  .MuiFormHelperText-root {
+    font-size: 0.61em;
+  }
+  .MuiInputLabel-outlined {
+    transform: translate(14px, 22px) scale(1);
+  }
+  .MuiInputLabel-root {
+    font-size: 0.8em;
+    &.MuiInputLabel-shrink {
+      font-size: 0.9em;
+    }
+    &.Mui-focused {
+      color: @mainMiddleColor;
+      fieldset {
+        border-color: @mainMiddleColor !important;
+        border-width: 1px !important;
+      }
+    }
+  }
+
+  .MuiInputBase-root {
+    &.Mui-focused {
+      fieldset {
+        border-color: @mainMiddleColor !important;
+        border-width: 1px !important;
+      }
+    }
+    .MuiInputBase-input {
+      font-size: 0.8em;
+    }
+  }
+
+  label {
+    color: #666;
+  }
+  legend {
+    width: auto;
+  }
+  fieldset {
+    @include transitionAnimation;
+  }
+}
+
+.MuiButtonBase-root {
+  text-decoration: none;
+  &.MuiFab-root {
+    background: @buttonSimpleBackgound !important;
+    border: 1px solid #f1f1f1 !important;
+    box-shadow: none !important;
+  }
+
+  .MuiButton-label {
+    text-transform: initial;
+  }
+  &:hover {
+    box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.1), 0px 3px 6px 0px rgba(0, 0, 0, 0.1),
+      0px 1px 3px 0px rgba(0, 0, 0, 0.01) !important;
+  }
+}
+
+.MuiSwitch-root {
+  overflow: visible !important;
+}
+
+.cubeFab {
+  border-radius: 3px !important;
+  span {
+    font-size: 18px;
+    line-height: 25px;
+    color: #999;
+  }
+}
+
+.MuiButton-containedPrimary {
+  background: @mainMiddleColor !important;
+}
+.MuiButton-sizeLarge {
+  padding: 15px 22px !important;
+}
+.MuiInputLabel-outlined {
+  transform: translate(20px, 20px) scale(1);
+}
+
+.formTextSimple .MuiIconButton-edgeEnd {
+  margin-right: 0px !important;
+}
+
+.MuiInput-underline:after,
+.MuiInput-underline:hover:not(.Mui-disabled):before,
+.MuiFilledInput-underline:after {
+  border-bottom: 1px solid @mainMiddleColor !important;
+}
+
+.customIconButton {
+  background: #fff !important;
+  color: #666666 !important;
+  padding: 10px 20px !important;
+  line-height: 25px !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  overflow: hidden !important;
+  position: relative;
+  padding-left: 65px !important;
+  font-size: 12px !important;
+  span[class*=' fa-'] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 45px;
+    line-height: 35px;
+    font-size: 19px;
+    border-right: 1px solid #dbe0e4;
+    background: #f7f7f7;
+    width: 50px;
+    padding: 5px 10px;
+  }
+  &.small {
+    padding: 8px 15px !important;
+    line-height: 25px !important;
+    font-weight: 600 !important;
+    padding-left: 50px !important;
+    span[class*=' fa-'] {
+      height: 41px;
+      line-height: 34px;
+      font-size: 15px;
+      width: 40px;
+      padding: 5px 10px;
+    }
+  }
+  &.MuiButton-outlined.green {
+    color: #6ea038 !important;
+    border-color: #618d31;
+    span[class*=' fa-'] {
+      border-right: 1px solid #8ece49 !important;
+    }
+  }
+  &.MuiButton-contained.green {
+    background: #6ea038 !important;
+    color: #fff !important;
+    span[class*=' fa-'] {
+      border-right: 1px solid #8ece49 !important;
+      background: #618d31 !important;
+      color: #fff !important;
+    }
+  }
+
+  &.MuiButton-outlined.red {
+    color: #ff6f79 !important;
+    border-color: #e53935;
+    span[class*=' fa-'] {
+      border-right: 1px solid #8ece49 !important;
+    }
+  }
+  &.MuiButton-contained.red {
+    background: #e53935 !important;
+    color: #fff !important;
+    span[class*=' fa-'] {
+      border-right: 1px solid #ff6f79 !important;
+      background: #e53935 !important;
+      color: #fff !important;
+    }
+  }
+
+  &.MuiButton-outlined.blue {
+    color: @mainMiddleColor !important;
+    border-color: @mainMiddleColor;
+    span[class*=' fa-'] {
+      border-right: 1px solid #abdafb !important;
+    }
+  }
+  &.MuiButton-contained.blue {
+    background: @mainMiddleColor !important;
+    color: #fff !important;
+    span[class*=' fa-'] {
+      border-right: 1px solid #1874b3 !important;
+      background: #0882d6 !important;
+      color: #fff !important;
+    }
+  }
+}
+.MuiTableSortLabel-icon,
+.MuiTableSortLabel-active.MuiButtonBase-root {
+  margin-top: -3px;
+  &.hover {
+    box-shadow: none !important;
+  }
+}
+
+.MuiTableSortLabel-active.MuiButtonBase-root:hover {
+  box-shadow: none !important;
+}
+
+.MuiSwitch-root {
+  .MuiSwitch-colorPrimary {
+    color: @errorDarkColor !important;
+  }
+  .MuiSwitch-colorPrimary.Mui-checked {
+    color: @mainMiddleColor !important;
+  }
+  .MuiSwitch-track {
+    background-color: @errorColor;
+  }
+  .MuiSwitch-colorPrimary.Mui-checked + .MuiSwitch-track {
+    background-color: @infotextColor;
+  }
+}
+
+.MuiIconButton-colorSecondary:hover {
+  background: none !important;
+  box-shadow: none !important;
+  .MuiSvgfa-root {
+    fill: @mainMiddleColor;
+  }
+}
+
+/* FROALA EDITS */
+.EditorFocused {
+  .fr-toolbar,
+  .fr-wrapper {
+    border: 1px solid @mainMiddleColor !important;
+  }
+  .fr-wrapper {
+    border-top: none !important;
+  }
+  .fr-toolbar {
+    border-bottom: none !important;
+  }
+  .second-toolbar {
+    background: @mainMiddleColor;
+    border-color: @mainMiddleColor;
+  }
+}
+
+.fr-qi-helper a.fr-floating-btn svg {
+  margin-top: -15px;
+}
+.fr-toolbar.fr-top {
+  border-radius: 5px 5px 0 0 !important;
+  -moz-border-radius: 5px 5px 0 0 !important;
+  -webkit-border-radius: 5px 5px 0 0 !important;
+  border-bottom: 0px;
+}
+.second-toolbar {
+  border-radius: 0 0 5px 5px !important;
+  -moz-border-radius: 0 0 5px 5px !important;
+  -webkit-border-radius: 0 0 5px 5px !important;
+  height: 5px;
+  border-top: none !important;
+  overflow: hidden;
+}

@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
+import { useInterval } from "src/hooks/useInterval";
 import "./Assets/Clock.css";
 
 const Clock = props => {
@@ -56,22 +57,14 @@ class Display extends Component {
   }
 
 
-class ClockTime extends Component {
-    state = {
-      now: new Date()
-    };
-    componentDidMount() {
-      this.timerId = setInterval(() => this.tick(), 1000);
-    }
-  
-    tick = () => {
-      this.setState({ now: new Date() });
-    };
-  
-    render() {
-      return (
-          <Display now={this.state.now} />
-      );
-    }
-  }
+const ClockTime = ()=>{
+  const [time, setTime] = useState(new Date());
+  // useInterval(()=>{
+  //   setTime(new Date());
+  // }, 1000)
+  return(
+    // <Display now={null} />
+    <>SAAT</>
+  )
+}
 export default ClockTime;

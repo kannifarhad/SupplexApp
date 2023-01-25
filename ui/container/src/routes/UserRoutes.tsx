@@ -8,4 +8,4 @@ export const UserManagement = new SiteRoute({
     component: lazy(() => import("../pages/Dashboard/Dump")),
     exact: true,
     userLevel: ["ADMIN"],
-  });
+});

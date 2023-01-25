@@ -1,6 +1,6 @@
 import { ApolloClient, ApolloLink, InMemoryCache, split } from "@apollo/client";
 import { getMainDefinition } from "@apollo/client/utilities";
-import { authLink, errorLink, httpLink } from "./links";
+import { authLink, errorLink, httpLink, wsLink } from "./links";
 
 // Switch link depending on the operation type
 const splitLink = split(
@@ -12,6 +12,7 @@ const splitLink = split(
       definition.operation === "subscription"
     );
   },
+  wsLink,
   httpLink
 );
 
@@ -35,11 +36,12 @@ const cleanTypeName = new ApolloLink((operation, forward) => {
 // Main application client
 const client = new ApolloClient({
   // Required constructor fields
+  uri:'http://localhost:4000/graphql',
   link: ApolloLink.from([
     authLink,
     cleanTypeName,
     errorLink,
-    splitLink,
+    splitLink
   ]),
   cache: new InMemoryCache(),
   connectToDevTools: true,
