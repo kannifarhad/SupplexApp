@@ -21,6 +21,16 @@ export class User {
 	firstname: string;
 	@Field((_) => String)
 	lastname: string;
+	
+	@Field((_) => String, {nullable: true})
+	photo?: string;
+	@Field((_) => String, {nullable: true})
+	phone?: string;
+	@Field((_) => String, {nullable: true})
+	address?: string;
+	@Field((_) => String, {nullable: true})
+	location?: string;
+
 	@Field((_) => UserRole)
 	role: keyof typeof UserRole;
 	@Field((_) => UserStatus)

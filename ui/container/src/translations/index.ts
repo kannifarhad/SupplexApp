@@ -12,13 +12,13 @@ export const LangList = [
         slug: "az",
         title: "Azərbaycanca",
         translations: az,
-        flag: toAbsoluteUrl('/static/img/flags/en.svg'),
+        flag: toAbsoluteUrl('/static/img/flags/az.svg'),
     },
     {
         slug: "en",
         title: "English",
         translations: en,
-        flag: toAbsoluteUrl('/static/img/flags/az.svg'),
+        flag: toAbsoluteUrl('/static/img/flags/en.svg'),
     },
     {
         slug: "ru",

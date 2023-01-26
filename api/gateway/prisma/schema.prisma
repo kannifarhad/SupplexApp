@@ -28,17 +28,19 @@ model Subscriptions {
 model Organization {
   id                  String                @id @default(cuid())
   name                String                @unique
+  superAdminId        String
+  location            String
   address             String?
   phone               String?
   webPage             String?
   description         String?
   thumb               String?
+  sochialNetworks     Json                  @default("[]")
+  updatedAt           DateTime              @default(now()) @updatedAt
+  createdAt           DateTime              @default(now())
   status              OrganizationStatus    @default(PENDING)
   subscriptions       Subscriptions[]       
   teams               Teams[]       
-  updatedAt           DateTime              @default(now()) @updatedAt
-  createdAt           DateTime              @default(now())
-  superAdminId        String
 }
 
 model User {
@@ -47,14 +49,19 @@ model User {
   firstname           String
   lastname            String
   password            String                @default("")
+  photo               String?                
+  phone               String?                
+  address             String?         
+  location            String?         
+  updatedAt           DateTime              @default(now()) @updatedAt
+  createdAt           DateTime              @default(now())  
+       
   role                UserRole              @default(CONSUMER)
   teams               UserOnTeams[]
   status              UserStatus            @default(ACTIVE)
   feedbacks           Feedback[]
   systemAlerts        SystemAlerts[]
   notifications       Notification[]        @relation("TargetUser")
-  updatedAt           DateTime              @default(now()) @updatedAt
-  createdAt           DateTime              @default(now())
 }
 model Payments {
   id                  String                @id @default(cuid())

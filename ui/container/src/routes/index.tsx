@@ -1,8 +1,10 @@
-import * as SidebarRoutes from "./UserRoutes";
-import * as DashboardRoutes from "./DashboardRoutes";
+import UserManagement from "../pages/Users/routes";
+import * as DashboardRoutes from "../pages/Dashboard/routes";
 
 export const siteMap = {
-  ...SidebarRoutes,
+  UserManagement,
   ...DashboardRoutes
 };
-
+export const SidebarRoutes ={
+  UserManagement
+}

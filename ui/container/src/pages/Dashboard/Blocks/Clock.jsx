@@ -64,7 +64,7 @@ const ClockTime = ()=>{
   // }, 1000)
   return(
     // <Display now={null} />
-    <>SAAT</>
+    <></>
   )
 }
 export default ClockTime;

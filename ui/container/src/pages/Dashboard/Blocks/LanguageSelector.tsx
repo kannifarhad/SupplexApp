@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from "react-i18next";
 import { LangList } from "../../../translations";
-import { Popover, Paper } from '@mui/material';
+import { Popover, Paper, Avatar } from '@mui/material';
 
 import clsx from 'clsx';
 
@@ -26,7 +26,11 @@ const LanguageSelector = ()=> {
       <div className="headerDropdownWrapper" onClick={handleClick}>
         <span className={'dropdownMenuButton'}>
           <span className="iconBLock">
-            <img src={currentLanguage?.flag} alt={currentLanguage?.title} />
+              <Avatar
+                alt={`Selected language ${currentLanguage?.title}`}
+                src={currentLanguage.flag || undefined}
+                sx={{ width: 25, height: 25 }}
+              />
           </span>
           <span className="title">{currentLanguage?.title}</span>
         </span>

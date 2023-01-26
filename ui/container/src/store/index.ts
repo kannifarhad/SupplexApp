@@ -20,13 +20,13 @@ import storage from "redux-persist/lib/storage";
 import { resetToken } from "../utils";
 import auth, { authSlice } from "./auth";
 import error from "./error";
-import navigation from "./navigation";
+import navigation, {navigationSlice}  from "./navigation";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: [authSlice.name],
+  whitelist: [authSlice.name, navigationSlice.name],
   stateReconciler: autoMergeLevel2,
 };
 

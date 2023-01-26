@@ -28,13 +28,10 @@ const initialState: AuthState = {
 export const loginWithCredentials = createAsyncThunk(
   "auth/loginWithCredentials",
   async (variables: LoginMutationVariables) => {
-    console.log('loginWithCredentials', variables);
-    console.log('client', client);
     const { data } = await client.mutate<LoginMutation>({
       mutation: LOGIN,
       variables,
     });
-    console.log(data)
     return data!.login;
   }
 );

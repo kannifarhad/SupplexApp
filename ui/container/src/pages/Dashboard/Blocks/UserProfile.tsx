@@ -3,22 +3,24 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { toAbsoluteUrl } from '../../../utils';
 // import { userLogout } from '../../../Redux/actions';
-import { Popover, List, ListItem } from '@mui/material';
+import { Popover, List, ListItem, Avatar } from '@mui/material';
 import { Trans } from "react-i18next";
 import { selectUser } from "../../../store/auth";
 
 function UserProfile() {
-  const user = useSelector(selectUser);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const navigation = useNavigate();
+  const open = Boolean(anchorEl);
+  const user = useSelector(selectUser);
+  const id = open ? 'profileDropdown' : undefined;
+
   const logoutHandle = () => {
     navigation('/logout')
   };
+
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const id = open ? 'profileDropdown' : undefined;
 
   return (
     <div aria-describedby={id}>
@@ -28,7 +30,11 @@ function UserProfile() {
             <span><Trans>Hi,</Trans></span>
             <span>{user?.firstname}</span>
           </div>
-          {/* <img alt="Pic" src={user?.image} /> */}
+          <Avatar
+            alt="Profile picture"
+            src={user?.photo || undefined}
+            sx={{ width: 24, height: 24 }}
+          />
         </div>
 
         <Popover
@@ -46,9 +52,12 @@ function UserProfile() {
               className="userCardCover"
               style={{ backgroundImage: `url(${toAbsoluteUrl('/static/img/loginBg.jpg')})` }}
             >
-              <div className="circleRipple"></div>
               <div className="userCardPhoto">
-                {/* <img alt="Pic" src={user.image} /> */}
+                <Avatar
+                  alt="Profile picture"
+                  src={user?.photo || undefined}
+                  sx={{ width: 75, height: 75 }}
+                />
               </div>
               <div className="userCardName">{user?.firstname} - {user?.lastname}</div>
             </div>

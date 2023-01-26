@@ -11,6 +11,12 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
+  JSON: any;
+};
+
+export type AddTeamMembersInput = {
+  teamId: Scalars['String'];
+  userIds: Array<Scalars['String']>;
 };
 
 export type AuthPayload = {
@@ -33,8 +39,12 @@ export type LoginInput = {
 };
 
 export type Mutation = {
+  /** Add an existing Organization users to the team */
+  addTeamMembers: Array<UserOnTeam>;
   /** Create new user details of a user */
   createUser: User;
+  /** Remove a user from an existing team */
+  deleteTeamMember: UserOnTeam;
   /** Login with credentials */
   login: AuthPayload;
   /** Safety measure to close current session */
@@ -43,11 +53,23 @@ export type Mutation = {
   refreshToken: AuthPayload;
   /** Update details of a user (admin only) */
   updateUser: User;
+  updateUserOnTeam: UserOnTeam;
+};
+
+
+export type MutationAddTeamMembersArgs = {
+  input: AddTeamMembersInput;
+  where: TeamsWhereUniqueInput;
 };
 
 
 export type MutationCreateUserArgs = {
   input: CreateUserInput;
+};
+
+
+export type MutationDeleteTeamMemberArgs = {
+  where: UserOnTeamWhereUniqueInput;
 };
 
 
@@ -59,6 +81,12 @@ export type MutationLoginArgs = {
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput;
   where: UserWhereUniqueInput;
+};
+
+
+export type MutationUpdateUserOnTeamArgs = {
+  input: UpdateUserOnTeamsInput;
+  where: UserOnTeamWhereUniqueInput;
 };
 
 export type Query = {
@@ -73,20 +101,72 @@ export type QueryUserArgs = {
   where: UserWhereUniqueInput;
 };
 
+export enum TeamStatus {
+  ACTIVE = 'ACTIVE',
+  PENDING = 'PENDING',
+  SUSPENDED = 'SUSPENDED'
+}
+
+export type Teams = {
+  accessList: Scalars['JSON'];
+  createdAt: Scalars['DateTime'];
+  description?: Maybe<Scalars['String']>;
+  endDate: Scalars['DateTime'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  organizationId: Scalars['String'];
+  status: TeamStatus;
+  thumb?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['DateTime'];
+};
+
+export enum TeamsUserRole {
+  CONSUMER = 'CONSUMER',
+  HEAD = 'HEAD'
+}
+
+export type TeamsWhereUniqueInput = {
+  id: Scalars['ID'];
+};
+
 export type UpdateUserInput = {
   role?: InputMaybe<UserRole>;
   status?: InputMaybe<UserStatus>;
 };
 
+export type UpdateUserOnTeamsInput = {
+  role?: InputMaybe<TeamsUserRole>;
+};
+
 export type User = {
+  address?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   firstname: Scalars['String'];
   id: Scalars['ID'];
   lastname: Scalars['String'];
+  location?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  photo?: Maybe<Scalars['String']>;
   role: UserRole;
   status: UserStatus;
   updatedAt: Scalars['DateTime'];
+};
+
+export type UserOnTeam = {
+  accessedAt: Scalars['DateTime'];
+  createdAt: Scalars['DateTime'];
+  role: TeamsUserRole;
+  team: Teams;
+  teamId: Scalars['ID'];
+  updatedAt: Scalars['DateTime'];
+  user: User;
+  userId: Scalars['ID'];
+};
+
+export type UserOnTeamWhereUniqueInput = {
+  teamId: Scalars['ID'];
+  userId: Scalars['ID'];
 };
 
 export enum UserRole {
@@ -105,23 +185,23 @@ export type UserWhereUniqueInput = {
   id: Scalars['ID'];
 };
 
-export type UserFieldsFragment = { id: string, email: string, firstname: string, lastname: string, role: UserRole };
+export type UserFieldsFragment = { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole };
 
-export type UserSingleFieldsFragment = { id: string, email: string, firstname: string, lastname: string, role: UserRole, status: UserStatus };
+export type UserSingleFieldsFragment = { id: string, email: string, firstname: string, lastname: string, photo?: string | null, address?: string | null, location?: string | null, phone?: string | null, role: UserRole, status: UserStatus };
 
 export type LoginMutationVariables = Exact<{
   input: LoginInput;
 }>;
 
 
-export type LoginMutation = { login: { token: string, user: { id: string, email: string, firstname: string, lastname: string, role: UserRole } } };
+export type LoginMutation = { login: { token: string, user: { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole } } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LogoutMutation = { logout: { id: string, email: string, firstname: string, lastname: string, role: UserRole } };
+export type LogoutMutation = { logout: { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole } };
 
 export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RefreshTokenMutation = { refreshToken: { token: string, user: { id: string, email: string, firstname: string, lastname: string, role: UserRole } } };
+export type RefreshTokenMutation = { refreshToken: { token: string, user: { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole } } };

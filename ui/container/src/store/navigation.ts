@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { siteMap } from "../routes";
-import { RootState } from "./index";
+import { persistor, RootState } from "./index";
 
 const SLICE_NAME = "navigationSlice";
 
@@ -9,10 +9,10 @@ type NavigationState = {
 };
 
 const initialState: NavigationState = {
-  sidebarCollapsed: false,
+  sidebarCollapsed: true,
 };
 
-export const slice = createSlice({
+export const navigationSlice = createSlice({
   name: SLICE_NAME,
   initialState,
   reducers: {
@@ -27,6 +27,6 @@ export const slice = createSlice({
   },
 });
 
-export default slice.reducer;
-export const { openSidebar, closeSidebar } = slice.actions;
+export default navigationSlice.reducer;
+export const { openSidebar, closeSidebar } = navigationSlice.actions;
 export const selectNavigation = (state: RootState) => state.navigation;

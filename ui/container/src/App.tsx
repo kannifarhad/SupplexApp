@@ -21,21 +21,12 @@ const App = () => {
                     path="login"
                     element={<PublicRoute><Login /></PublicRoute> }
                 />
-                {/* <Route
-                    path="logout"
-                    element={ <PublicRoute><Logout /></PublicRoute> }
-                />
-                <Route
-                    path="downtime"
-                    element={ <PublicRoute> <DefaultNotice /> </PublicRoute> }
-                /> */}
                 {Object.values(siteMap)
                 .map((route, index) => {
                     const {
                         path,
                         component: Component,
-                        userLevel,
-                        sidebarCollapsed,
+                        accessId
                     } = route;
                     return (
                     <Route
@@ -43,10 +34,7 @@ const App = () => {
                         path={path}
                         element={
                             <DashboardWrapp>
-                                <ProtectedRoute
-                                    userLevel={userLevel}
-                                    sidebarCollapsed={sidebarCollapsed}
-                                >
+                                <ProtectedRoute>
                                     {Component && ( <DynamicImport component={Component} /> )}
                                 </ProtectedRoute>
                             </DashboardWrapp>
@@ -54,8 +42,13 @@ const App = () => {
                     />
                     );
                 })}
-                <Route path="*" element={<NotFound />} />
-            </Routes>
+                <Route path="*" element={
+                    <DashboardWrapp>
+                        <ProtectedRoute>
+                            <DynamicImport component={NotFound} />
+                        </ProtectedRoute>
+                    </DashboardWrapp>} />
+                </Routes>
             </BrowserRouter>
         </ApolloProvider>
     );

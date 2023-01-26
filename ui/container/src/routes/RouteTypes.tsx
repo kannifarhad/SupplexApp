@@ -13,16 +13,13 @@ import _ from "lodash";
 
 export const ProtectedRoute = ({
   children,
-  userLevel,
-  sidebarCollapsed,
+
 }: {
   children: ReactElement | null;
-  userLevel?: SiteRoute['userLevel'],
-  sidebarCollapsed?: SiteRoute['sidebarCollapsed']
 }) => {
   useLocationSaver();
   const dispatch = useAppDispatch();
-  dispatch(sidebarCollapsed ? closeSidebar() : openSidebar())
+  // dispatch(sidebarCollapsed ? closeSidebar() : openSidebar())
   const me = useSelector(selectUser);
   const { errorType } = useSelector(selectErrorSlice);
   const navigate = useNavigate();
@@ -35,9 +32,9 @@ export const ProtectedRoute = ({
     return  <AccessDeniedNotice />;
   console.log('me',me)
   //Role Validation
-  if(userLevel && me?.role && !userLevel.includes('CONSUMER') && !userLevel.includes(me?.role)){
-    return <AccessDeniedNotice /> 
-  }
+  // if(userLevel && me?.role && !userLevel.includes('CONSUMER') && !userLevel.includes(me?.role)){
+  //   return <AccessDeniedNotice /> 
+  // }
   
   //User permission validation
 //   if (!hasPermissionsToViewThisPage(userPermissions, me?.userPermission)) 

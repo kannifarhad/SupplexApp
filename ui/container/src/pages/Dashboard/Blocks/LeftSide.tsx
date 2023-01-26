@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { toAbsoluteUrl } from '../../../utils';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -10,9 +10,9 @@ function AsideLeft() {
       <div className={`asideMenuContainer`}>
         <div className="asideMenuHead">
           <Link to="/">
-            <img alt="Cronus" className="bigLogo" src={toAbsoluteUrl('/static/img/logos/lightLogo.svg')} />
+            <img alt="Supplex" className="bigLogo" src={toAbsoluteUrl('/static/img/logos/lightLogo.svg')} />
             <img
-              alt="Cronus"
+              alt="Supplex"
               className="smallLogo"
               src={toAbsoluteUrl('/static/img/logos/lineIcon.svg')}
             />
@@ -28,4 +28,4 @@ function AsideLeft() {
   );
 }
 
-export default AsideLeft;
+export default memo(AsideLeft);
