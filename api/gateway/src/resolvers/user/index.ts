@@ -71,6 +71,16 @@ export class UserResolver {
 			}
 		});
 	}
+
+	@Query((_) => [User], {
+		description: "Return self information",
+	})
+	users(
+		@Ctx() ctx: Context
+	) {
+		if (!ctx.user) throw new UserError("UNAUTHENTICATED");
+		return ctx.prisma.user.findMany();
+	}
 	
 	@Mutation((_) => AuthPayload, {
 		description: "Login with credentials",

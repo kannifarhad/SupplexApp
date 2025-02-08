@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { toAbsoluteUrl } from '../../../utils';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import Menu from './Menu';
+import { StyledSideMenu } from './styled';
 
 function AsideLeft() {
   return (
-    <>
+    <StyledSideMenu className="sideMenu">
       <div className={`asideMenuContainer`}>
         <div className="asideMenuHead">
           <Link to="/">
@@ -19,12 +20,12 @@ function AsideLeft() {
           </Link>
         </div>
         <div className="asideMenuListWrapper">
-          <PerfectScrollbar options={{ wheelSpeed: 2 }}>
+          {/* <PerfectScrollbar options={{ wheelSpeed: 2 }}> */}
             <Menu />
-          </PerfectScrollbar>
+          {/* </PerfectScrollbar> */}
         </div>
       </div>
-    </>
+    </StyledSideMenu>
   );
 }
 

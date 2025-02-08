@@ -10,7 +10,7 @@ class Footer extends React.Component {
         <div className="copyright">
           {today.toString()}&nbsp;&copy;&nbsp;
           <a href="http://kanni.pro/" rel="noopener noreferrer" target="_blank">
-            Supplex {' '}
+            Supplex
           </a>
         </div>
         <div>

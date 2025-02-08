@@ -27,7 +27,7 @@ const MenuBar = ()=>{
 }
 
 const MenuItem = ({ item, currentUrl, parentItem }: { item: SiteRoute, currentUrl: string, parentItem?: SiteRoute  }) =>{
-  console.log('MenuItem',item);
+  // console.log('MenuItem',item);
   const asideLeftLIRef = useRef<any>();
   
   const operations = {

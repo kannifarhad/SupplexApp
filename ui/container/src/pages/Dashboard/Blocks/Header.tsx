@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import { Fab } from '@mui/material';
 import Topbar from './Topbar';
-import SubHeader from './SubHeader';
-import clsx from 'clsx'
 import {
   closeSidebar,
   openSidebar,
@@ -12,7 +10,7 @@ import { useAppDispatch } from "../../../store";
 import { useSelector } from "react-redux";
 
 
-export const Header = ({}) => {
+export const Header = () => {
   const dispatch = useAppDispatch();
   const { sidebarCollapsed } = useSelector(selectNavigation);
 
@@ -43,7 +41,6 @@ export const Header = ({}) => {
         </div>
         <Topbar />
       </div>
-      <SubHeader />
     </div>
   );
 }

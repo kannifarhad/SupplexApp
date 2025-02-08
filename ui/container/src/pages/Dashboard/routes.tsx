@@ -6,15 +6,13 @@ export const DashboardRoutes = new SiteRoute({
     path: "/",
     description: "Main Page",
     component: lazy(() => import("./Dashboard")),
-    exact: true,
 });
 
 export const UserProfile = new SiteRoute({
     title: "User Profile",
     path: "/profile",
-    description: "Control user accesses to Dashboard",
+    description: "Your Profile where you can view or edit your information",
     component: lazy(() => import("./Profile")),
-    exact: true,
 });
 
 export const Logout = new SiteRoute({
@@ -22,5 +20,13 @@ export const Logout = new SiteRoute({
     path: "/logout",
     description: "logout",
     component: lazy(() => import("./Logout")),
-    exact: true,
+});
+
+export const Configuration = new SiteRoute({
+    title: "Configuration",
+    path: "/config",
+    description: "Configuration of the system",
+    component: lazy(() => import("./Dump")),
+    showInMenu: true,
+    iconName: "fa-gear"
 });

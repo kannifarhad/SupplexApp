@@ -1,10 +1,12 @@
 import { Trans } from "react-i18next";
 
-const SubHeader = ()=> {
+const SubHeader = ({ title, description })=> {
+    const titleParsed = <Trans>{title ?? "Dashboard"}</Trans>;
+    const descriptionParsed = <Trans>{description ?? "Wellcome to Supplex dashboard"}</Trans>;
     return (
       <div className={`dashboardSubheader`}>
-        <div className="title"><Trans>Dashboard</Trans></div>
-        <div className="description">List Of All Posts</div>
+        <div className="title">{titleParsed}</div>
+        <div className="description">{descriptionParsed}</div>
       </div>
     );
 }

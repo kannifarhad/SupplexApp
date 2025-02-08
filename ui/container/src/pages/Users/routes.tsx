@@ -9,6 +9,11 @@ const userManagementAccessRules = {
     accessId:ACCESS_MAIN_KEY,
     description: "List of the users in organization",
     accesses: {
+        usersList: {
+            accessId:`${ACCESS_MAIN_KEY}/usersList`,
+            title:"View Users List",
+            description: "Viewing the list of users in the organization",
+        },
         editUser:{
             accessId:`${ACCESS_MAIN_KEY}/editUser`,
             title:"Edit User Profile",
@@ -26,7 +31,7 @@ export const EditUser = new SiteRoute<{id :string}>({
     ...userManagementAccessRules.accesses.editUser,
     parentPath:MAIN_PATH,
     path: "/:id",
-    component: lazy(() => import("../Dashboard/Dump")),
+    component: lazy(() => import("./UserEdit")),
     exact: true,
     showInMenu:true,
 });
@@ -35,7 +40,16 @@ export const AddUser = new SiteRoute<{id :string}>({
     ...userManagementAccessRules.accesses.addUser,
     parentPath:MAIN_PATH,
     path: "/add",
-    component: lazy(() => import("../Dashboard/Dump")),
+    component: lazy(() => import("./UserAdd")),
+    showInMenu:true,
+    exact: true,
+});
+
+export const AllUsers = new SiteRoute<{id :string}>({
+    ...userManagementAccessRules.accesses.usersList,
+    parentPath: MAIN_PATH,
+    path: "/list",
+    component: lazy(() => import("./UsersList")),
     showInMenu:true,
     exact: true,
 });
@@ -43,15 +57,16 @@ export const AddUser = new SiteRoute<{id :string}>({
 export const UserManagement = new SiteRoute({
     title: userManagementAccessRules.title,
     description: "List of the users in organization",
-    accessId:userManagementAccessRules.accessId,
+    accessId: userManagementAccessRules.accessId,
     path: MAIN_PATH,
-    component: lazy(() => import("../Dashboard/Dump")),
-    iconName:'fa-user',
+    // component: lazy(() => import("./UsersWrapper")),
     exact: true,
-    showInMenu:true,
+    iconName:'fa-user',
+    showInMenu: true,
     children:[
+        AllUsers,
         EditUser,
-        AddUser
+        AddUser,
     ]
 });
 
