@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import * as storage from "store";
-import { refreshingClient } from "../clients/apolloClient";
-import { REFRESH_TOKEN } from "../graphql";
+import { refreshingClient } from "../services/clients/apolloClient";
+import { REFRESH_TOKEN } from "../services/graphql";
 import { RefreshTokenMutation } from "../types";
 
 export const getToken = (): string => {

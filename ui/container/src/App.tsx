@@ -1,6 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
-import apolloClient from "./clients/apolloClient";
+import apolloClient from "./services/clients/apolloClient";
 import { siteMap, } from "./routes";
 import { SiteRoute } from "./routes/types";
 import DashboardWrapp from './pages/Dashboard/DashboardWrapp';
@@ -41,7 +41,7 @@ const renderRoutes = ({ routes, parentRoute }: RenderRoutesProps) => {
         path={fullPath}
         element={
           <DashboardWrapp>
-            <ProtectedRoute>
+            <ProtectedRoute accessRoles={route.accessRoles}>
               {Component ? <DynamicImport component={Component} componentProps={{ title, description }}/> : <Outlet />}
             </ProtectedRoute>
           </DashboardWrapp>

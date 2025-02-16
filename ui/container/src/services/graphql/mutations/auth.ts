@@ -1,35 +1,35 @@
 import { gql } from "@apollo/client";
-import { UserFields } from "../fragments";
+import { UserFieldsFragment } from "../fragments";
 
 export const LOGIN = gql`
   mutation Login($input: LoginInput!) {
     login(input: $input) {
       user {
-        ...UserFields
+        ...UserFieldsFragment
       }
       token
     }
   }
-  ${UserFields}
+  ${UserFieldsFragment}
 `;
 
 export const LOGOUT = gql`
   mutation Logout {
     logout {
-      ...UserFields
+      ...UserFieldsFragment
     }
   }
-  ${UserFields}
+  ${UserFieldsFragment}
 `;
 
 export const REFRESH_TOKEN = gql`
   mutation RefreshToken {
     refreshToken {
       user {
-        ...UserFields
+        ...UserFieldsFragment
       }
       token
     }
   }
-  ${UserFields}
+  ${UserFieldsFragment}
 `;

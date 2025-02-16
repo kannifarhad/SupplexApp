@@ -19,6 +19,7 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import storage from "redux-persist/lib/storage";
 import { resetToken } from "../utils";
 import auth, { authSlice } from "./auth";
+import userManagement from "./users";
 import error from "./error";
 import navigation, {navigationSlice}  from "./navigation";
 
@@ -33,7 +34,8 @@ const persistConfig = {
 const appReducer = combineReducers({
   auth,
   error,
-  navigation
+  navigation,
+  userManagement
 });
 
 const rootReducer = (state: any, action: any) => {

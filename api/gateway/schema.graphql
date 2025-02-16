@@ -81,6 +81,9 @@ type Query {
 
   """Return user information"""
   user(where: UserWhereUniqueInput!): User! @join__field(graph: MAIN)
+
+  """Return self information"""
+  users: [User!]! @join__field(graph: MAIN)
 }
 
 enum TeamStatus {

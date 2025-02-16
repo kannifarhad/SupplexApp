@@ -76,7 +76,7 @@ class TableBody extends React.Component {
     const toIndex = Math.min(count, (highestPageInRange + 1) * rowsPerPage);
 
     if (page > highestPageInRange) {
-      console.warn('Current page is out of range, using the highest page that is in range instead.');
+      // console.warn('Current page is out of range, using the highest page that is in range instead.');
     }
 
     for (let rowIndex = fromIndex; rowIndex < count && rowIndex < toIndex; rowIndex++) {

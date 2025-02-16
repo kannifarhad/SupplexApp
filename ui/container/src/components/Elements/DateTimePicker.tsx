@@ -60,14 +60,11 @@ export default function TimeDatePicker(props: UIDateTimePicker) {
 
     initDate: (valueArg: any) => {
       let dateParsed;
-      console.log('valueArg',valueArg, formatParsed)
       try {
         dateParsed = parse(valueArg, formatParsed, new Date());
       } catch (error) {
         console.log(error);
       }
-      console.log('valueArg',dateParsed)
-
       return dateParsed;
     },
   };

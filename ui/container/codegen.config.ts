@@ -1,8 +1,9 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
-import { SUPPLEX_API_URL } from './src/constants';
+// import { SUPPLEX_API_URL } from './src/constants';
 
 const config: CodegenConfig = {
-   schema: `${SUPPLEX_API_URL}/graphql`,
+   // schema: `${SUPPLEX_API_URL}/graphql`,
+   schema: `http://localhost:4000/graphql`,
    documents: ['src/**/!(*.generated).{ts,tsx}'],
    overwrite: true,
    generates: {

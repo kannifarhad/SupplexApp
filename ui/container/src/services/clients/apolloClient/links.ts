@@ -7,15 +7,15 @@ import {
   SUPPLEX_API_URL,
   LAST_LOCATION_KEY,
   LOCATION_SKIP_LIST,
-} from "../../constants";
-import store from "../../store";
-import { logout } from "../../store/auth";
+} from "../../../constants";
+import store from "../../../store";
+import { logout } from "../../../store/auth";
 import { getAuthentication, setTransactionId } from "./auth";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
-import { setError } from "../../store/error";
-import * as Sentry from "@sentry/react";
-import React from "react";
+import { setError } from "../../../store/error";
+// import * as Sentry from "@sentry/react";
+// import React from "react";
 
 // TODO: Adapt subscriptions to Apollo Federation
 const supplexUrl = `${SUPPLEX_API_URL}/graphql`;

@@ -23,7 +23,6 @@ export const Header = () => {
             className={`cubeFab ${sidebarCollapsed ? 'active' : ''}`}
             aria-label="Toggle menu visibility"
             onClick={() => {
-              console.log('sidebarCollapsed',sidebarCollapsed);
               dispatch(sidebarCollapsed ? closeSidebar() : openSidebar())
             }}
           >

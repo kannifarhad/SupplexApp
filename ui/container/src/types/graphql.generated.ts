@@ -3,39 +3,41 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  DateTime: any;
-  JSON: any;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  DateTime: { input: any; output: any; }
+  JSON: { input: any; output: any; }
 };
 
 export type AddTeamMembersInput = {
-  teamId: Scalars['String'];
-  userIds: Array<Scalars['String']>;
+  teamId: Scalars['String']['input'];
+  userIds: Array<Scalars['String']['input']>;
 };
 
 export type AuthPayload = {
-  token: Scalars['String'];
+  token: Scalars['String']['output'];
   user: User;
 };
 
 export type CreateUserInput = {
-  email: Scalars['String'];
-  firstname: Scalars['String'];
-  lastname: Scalars['String'];
+  email: Scalars['String']['input'];
+  firstname: Scalars['String']['input'];
+  lastname: Scalars['String']['input'];
   role?: InputMaybe<UserRole>;
   status?: InputMaybe<UserStatus>;
-  teamId: Scalars['String'];
+  teamId: Scalars['String']['input'];
 };
 
 export type LoginInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -94,6 +96,8 @@ export type Query = {
   me: User;
   /** Return user information */
   user: User;
+  /** Return self information */
+  users: Array<User>;
 };
 
 
@@ -108,16 +112,16 @@ export enum TeamStatus {
 }
 
 export type Teams = {
-  accessList: Scalars['JSON'];
-  createdAt: Scalars['DateTime'];
-  description?: Maybe<Scalars['String']>;
-  endDate: Scalars['DateTime'];
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  organizationId: Scalars['String'];
+  accessList: Scalars['JSON']['output'];
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  endDate: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  organizationId: Scalars['String']['output'];
   status: TeamStatus;
-  thumb?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['DateTime'];
+  thumb?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export enum TeamsUserRole {
@@ -126,7 +130,7 @@ export enum TeamsUserRole {
 }
 
 export type TeamsWhereUniqueInput = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 export type UpdateUserInput = {
@@ -139,34 +143,34 @@ export type UpdateUserOnTeamsInput = {
 };
 
 export type User = {
-  address?: Maybe<Scalars['String']>;
-  createdAt: Scalars['DateTime'];
-  email: Scalars['String'];
-  firstname: Scalars['String'];
-  id: Scalars['ID'];
-  lastname: Scalars['String'];
-  location?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['String']>;
-  photo?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  email: Scalars['String']['output'];
+  firstname: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  lastname: Scalars['String']['output'];
+  location?: Maybe<Scalars['String']['output']>;
+  phone?: Maybe<Scalars['String']['output']>;
+  photo?: Maybe<Scalars['String']['output']>;
   role: UserRole;
   status: UserStatus;
-  updatedAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type UserOnTeam = {
-  accessedAt: Scalars['DateTime'];
-  createdAt: Scalars['DateTime'];
+  accessedAt: Scalars['DateTime']['output'];
+  createdAt: Scalars['DateTime']['output'];
   role: TeamsUserRole;
   team: Teams;
-  teamId: Scalars['ID'];
-  updatedAt: Scalars['DateTime'];
+  teamId: Scalars['ID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
   user: User;
-  userId: Scalars['ID'];
+  userId: Scalars['ID']['output'];
 };
 
 export type UserOnTeamWhereUniqueInput = {
-  teamId: Scalars['ID'];
-  userId: Scalars['ID'];
+  teamId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 export enum UserRole {
@@ -182,7 +186,7 @@ export enum UserStatus {
 }
 
 export type UserWhereUniqueInput = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 export type UserFieldsFragment = { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole };

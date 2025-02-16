@@ -94,7 +94,6 @@ export const svgToXml = (imagePath, imgclassName, imgId) => {
           '0 0 ' + svg.getAttribute('height') + ' ' + svg.getAttribute('width')
         );
       }
-      console.log('SVG', svg);
       return svg;
     });
 };

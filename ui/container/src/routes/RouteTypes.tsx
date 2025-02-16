@@ -13,9 +13,10 @@ import _ from "lodash";
 
 export const ProtectedRoute = ({
   children,
-
+  accessRoles,
 }: {
   children: ReactElement | null;
+  accessRoles?: string[];
 }) => {
   useLocationSaver();
   const dispatch = useAppDispatch();
@@ -27,9 +28,10 @@ export const ProtectedRoute = ({
   useEffect(() => {
     store.dispatch(cleanError())
   }, [navigate]);
+  if(errorType === "FORBIDDEN" || (Boolean(accessRoles) && !_.isEmpty(accessRoles) && !accessRoles?.includes(String(me?.role)))){
 
-  if(errorType === "FORBIDDEN")
     return  <AccessDeniedNotice />;
+  }
   //Role Validation
   // if(userLevel && me?.role && !userLevel.includes('CONSUMER') && !userLevel.includes(me?.role)){
   //   return <AccessDeniedNotice /> 

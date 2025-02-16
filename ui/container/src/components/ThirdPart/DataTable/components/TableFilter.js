@@ -251,7 +251,7 @@ class TableFilter extends React.Component {
     const { classes } = this.props;
     const { filterList } = this.state;
     if (column.filterOptions && column.filterOptions.renderValue) {
-      console.warn('Custom renderValue not supported for textField filters');
+      // console.warn('Custom renderValue not supported for textField filters');
     }
     const width = (column.filterOptions && column.filterOptions.fullWidth) === true ? 12 : 6;
 
@@ -331,11 +331,11 @@ class TableFilter extends React.Component {
       (options.filterOptions && options.filterOptions.display);
 
     if (!display) {
-      console.error('Property "display" is required when using custom filter type.');
+      // console.error('Property "display" is required when using custom filter type.');
       return;
     }
     if (column.filterListOptions && column.filterListOptions.renderValue) {
-      console.warning('"renderValue" is ignored for custom filter fields');
+      // console.warning('"renderValue" is ignored for custom filter fields');
     }
 
     return (

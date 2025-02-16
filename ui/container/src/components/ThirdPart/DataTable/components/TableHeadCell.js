@@ -195,7 +195,7 @@ const TableHeadCell = ({
       }}
       className={cellClass}
       sx={{
-        background: '#d4d4d4 !important',
+        background: '#dae1f8 !important',
         fontWeight:'600',
         lineHeight:'1.35',
         padding:'10px 14px 8px 14px !important',

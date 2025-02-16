@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { siteMap } from "../routes";
-import { persistor, RootState } from "./index";
+import { createSlice } from "@reduxjs/toolkit";
+import {  RootState } from "./index";
 
-const SLICE_NAME = "navigationSlice";
+const SLICE_NAME = "navigation";
 
 type NavigationState = {
   sidebarCollapsed: boolean;

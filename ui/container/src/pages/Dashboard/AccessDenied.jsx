@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation, Trans } from "react-i18next";
 import image404 from './Blocks/Assets/images/403.svg';
@@ -8,20 +8,16 @@ import { Box } from '@mui/material';
 
 export default function AccessDenied() {
   const { t } = useTranslation();
-  const history = useHistory();
+  const history = useNavigate();
   return (
     <>
      <Helmet>
         <title>{`${t('Access Denied')} | Supplex Dashboard`}</title>
       </Helmet>
 
-      <div className="row wrapper">
-        <div className="col-xl-12 marginBottom-20">
-          {/* <ButtonList buttons={PostButtons.postsAdd} /> */}
-        </div>
-      </div>
-      <Box className="whiteBlock">
-          <Box className="accessDenied">
+
+      <Box className="whiteBlock" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Box className="accessDenied" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
               <Box className="image">
                 <img alt="access denied" src={image404} />
               </Box>
@@ -31,7 +27,7 @@ export default function AccessDenied() {
                 <Button 
                     icon={<span className="fas fa-tachometer-alt-fastest"/>}
                     title={<Trans>Go to Main Dashboard</Trans>}
-                    onClick={()=> history.push('/')}
+                    onClick={()=> history('/')}
                 />
                 <Link to="/"></Link>
               </Box>

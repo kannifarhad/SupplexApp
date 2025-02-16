@@ -5,10 +5,10 @@ interface RouteDetails {
   description: string;
   component: React.LazyExoticComponent<React.FC<any>> | null;
   componentProps: { [key: string]: any };
-  exact: boolean | undefined;
   iconName: string;
   showInMenu: boolean;
   accessId: string;
+  accessRoles?: string[];
   requiresAccess: boolean;
   ignoredParams: string[];
   children: RouteDetails[];
@@ -24,10 +24,10 @@ export class SiteRoute<TParams extends object = {}> implements RouteDetails {
   showInMenu: boolean = true;
   component: React.LazyExoticComponent<React.FC<any>> | null = null;
   componentProps = {};
-  exact: boolean | undefined;
   requiresAccess: boolean = true;
   accessId: string = "";
   ignoredParams: string[] = [];
+  accessRoles?: string[] = [];
   iconName: string = "";
   children: RouteDetails[] = [];
 
@@ -37,12 +37,13 @@ export class SiteRoute<TParams extends object = {}> implements RouteDetails {
 
   getPath(params: { [key in keyof TParams]: string }): string {
     let path = this.path;
-    let parentPath = this.parentPath;
+    const parentPath = this.parentPath;
     for (const param in params) {
       if (!params[param]) continue;
       path = path.replace(`:${param}`, params[param]);
     }
-    return parentPath + path;
+    console.log(`${parentPath}${path}`);
+    return `${parentPath}${path}`;
   }
 
 }

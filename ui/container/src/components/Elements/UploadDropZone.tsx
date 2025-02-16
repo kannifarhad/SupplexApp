@@ -63,7 +63,7 @@ const DropZone: React.FC<IDropZone> = ({ options, getFilesBack }) => {
         const droppedFiles: File[] = e.dataTransfer.files
 
         for (let fileIndex = 0; fileIndex < droppedFiles.length; fileIndex++) {
-            console.log('type = ', droppedFiles[fileIndex].type);
+            // console.log('type = ', droppedFiles[fileIndex].type);
 
             const isAllowedFileType = allowed.includes(droppedFiles[fileIndex].type as MimeTypeEnum)
 

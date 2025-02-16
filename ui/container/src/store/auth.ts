@@ -6,12 +6,11 @@ import {
   isPending,
   isRejected,
 } from "@reduxjs/toolkit";
-import client from "../clients/apolloClient";
+import client from "../services/clients/apolloClient";
 import { persistor, RootState } from "./index";
 import { setToken } from "../utils";
 import { LAST_LOCATION_KEY } from "../constants";
-
-import { LOGIN, LOGOUT, } from "../graphql";
+import { LOGIN, LOGOUT, } from "../services/graphql";
 import { UserRole, LoginMutation, LoginMutationVariables, UserFieldsFragment } from "../types";
 // import { UserFields } from "../types";
 

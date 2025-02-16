@@ -1,6 +1,6 @@
 import JwtDecode from "jwt-decode";
 import * as Sentry from "@sentry/react";
-import { getToken, isTokenValid, refreshToken, setToken } from "../../utils";
+import { getToken, isTokenValid, refreshToken, setToken } from "../../../utils";
 import { uuid4 } from "@sentry/utils";
 
 export const getAuthentication = async () => {

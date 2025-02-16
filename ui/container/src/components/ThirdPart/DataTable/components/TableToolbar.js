@@ -326,6 +326,7 @@ class TableToolbar extends React.Component {
     return (
       <Toolbar
         className={options.responsive !== RESPONSIVE_FULL_WIDTH_NAME ? classes.root : classes.fullWidthRoot}
+        style={{ padding: '0px 20px' }}
         role={'toolbar'}
         aria-label={'Table Toolbar'}>
         <div className={options.responsive !== RESPONSIVE_FULL_WIDTH_NAME ? classes.left : classes.fullWidthLeft}>

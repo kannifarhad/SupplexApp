@@ -871,9 +871,9 @@ class MUIDataTable extends React.Component {
         this.options.rowsSelected.length > 1 &&
         this.options.selectableRows === 'single'
       ) {
-        console.error(
-          'Multiple values provided for selectableRows, but selectableRows set to "single". Either supply only a single value or use "multiple".',
-        );
+        // console.error(
+        //   'Multiple values provided for selectableRows, but selectableRows set to "single". Either supply only a single value or use "multiple".',
+        // );
       } else if (typeof this.options.rowsSelected === 'undefined' && dataUpdated === false) {
         if (this.state.selectedRows) {
           selectedRowsData = Object.assign({}, this.state.selectedRows);
@@ -1055,7 +1055,7 @@ class MUIDataTable extends React.Component {
     if (searchText && customSearch) {
       const customSearchResult = customSearch(searchText, row, columns);
       if (typeof customSearchResult !== 'boolean') {
-        console.error('customSearch must return a boolean');
+        // console.error('customSearch must return a boolean');
       } else {
         isSearchFound = customSearchResult;
       }
@@ -1063,7 +1063,7 @@ class MUIDataTable extends React.Component {
 
     if (options.serverSide) {
       if (customSearch) {
-        console.warn('Server-side filtering is enabled, hence custom search will be ignored.');
+        // console.warn('Server-side filtering is enabled, hence custom search will be ignored.');
       }
 
       return displayRow;
@@ -1940,7 +1940,7 @@ class MUIDataTable extends React.Component {
     }
 
     return (
-      <Paper elevation={this.options.elevation} ref={this.tableContent} className={paperClasses}>
+      <Paper elevation={this.options.elevation} ref={this.tableContent} className={paperClasses} style={{width: '100%'}}>
         {selectedRows.data.length > 0 && this.options.selectToolbarPlacement !== STP.NONE && (
           <TableToolbarSelectComponent
             options={this.options}

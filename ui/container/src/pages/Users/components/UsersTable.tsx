@@ -8,19 +8,52 @@ import {
   Avatar,
   Grid,
 } from "@mui/material";
-import { MUIDataTable } from "../../../components/ThirdPart";
+import { MUIDataTable } from "src/components/ThirdPart";
 import { DatePicker } from "src/components/Elements";
-// import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "src/store";
+import { getUsersList } from "src/store/users";
+import { useSelector } from "react-redux";
+import { selectUsersList } from "src/store/users";
+import { useNavigate } from "react-router-dom";
+import { EditUser } from "../routes";
 
-// import ButtonList from "../../Components/Elements/FormElements/ButtonList";
-// import UserButtons from "../../Data/Buttons/UserButtons";
-// import DatePicker from "../../Components/Elements/FormElements/DatePicker";
-// import { getUsersList } from "../../Redux/actions";
+const options = {
+  filter: true,
+  search: true,
+  print: false,
+  download: false,
+  viewColumns: false,
+  customToolbar: null,
+  selectableRows: "none",
+  filterType: "dropdown",
+  responsive: "standard",
+  className: "usersListTable",
+  elevation: 0,
+  rowsPerPage: 10,
+  searchPlaceholder: "Type any information about user...",
+  textLabels: {
+    body: {
+      noMatch: "Sorry we could not find any records!",
+    },
+    filter: {
+      all: "All users list",
+      title: "OUR FILTERS",
+      reset: "PERFORM RESET",
+    },
+    selectedRows: {
+      text: "rows has been selected",
+      delete: "Delete Row",
+      deleteAria: "Deleted Selected Rows",
+    },
+  },
+};
 
 function UsersList() {
-  //   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { loading, usersList } = useSelector(selectUsersList);
+  const navigate = useNavigate();
   const historyClick = (link) => {
-    // navigate(link);
+    navigate(link);
   };
 
   const handleClose = () => {
@@ -48,17 +81,26 @@ function UsersList() {
     handleSubmit,
   });
 
+  const handleClickPopupOpen = (title, id) => {
+    setPopup({
+      ...popupData,
+      open: true,
+      title,
+      id,
+    });
+  };
+
   const columns = [
     {
       name: "id",
       label: "Id",
       options: {
         filter: false,
-        sort: false,
+        sort: true,
         setCellHeaderProps: (value) => {
           return {
             style: {
-              width: 40,
+              width: 100,
               paddingLeft: "30px",
             },
           };
@@ -93,7 +135,7 @@ function UsersList() {
               variant="outlined"
               className="userAvator"
               size="medium"
-              label={value}
+              label={`${tableMeta?.allData?.firstname} ${tableMeta?.allData?.lastname}`}
               avatar={<Avatar src={tableMeta.rowData[1]} />}
             />
           );
@@ -101,7 +143,7 @@ function UsersList() {
       },
     },
     {
-      name: "login",
+      name: "email",
       label: "Login of user",
       options: {
         filter: true,
@@ -110,16 +152,8 @@ function UsersList() {
       },
     },
     {
-      name: "userGroup.title",
-      label: "User Group",
-      options: {
-        filter: true,
-        customFilterListOptions: { render: (v) => `User Group: ${v}` },
-      },
-    },
-    {
-      name: "phone",
-      label: "Phone Number",
+      name: "role",
+      label: "Role",
       options: {
         filter: true,
         customFilterListOptions: { render: (v) => `User Phone: ${v}` },
@@ -251,11 +285,13 @@ function UsersList() {
                   size="small"
                   style={{ marginRight: "10px" }}
                   className={`cubeFab`}
-                  onClick={() =>
-                    historyClick(`/user/info/${tableMeta.rowData[0]}`)
+                  onClick={()=> {
+                    console.log('EditUser.getPath({id: tableMeta.rowData[0] })', EditUser.getPath({id: tableMeta.rowData[0] }));
+                    // historyClick(EditUser.getPath({id: tableMeta.rowData[0] }))
                   }
+                } 
                 >
-                  <span className={"icon-view blueText"}> </span>
+                  <span className={"fad fa-eye blueText"} />
                 </Fab>
               </Tooltip>
 
@@ -271,7 +307,7 @@ function UsersList() {
                     )
                   }
                 >
-                  <span className={"icon-trash redText"}> </span>
+                  <span className={"fad fa-trash redText"}> </span>
                 </Fab>
               </Tooltip>
 
@@ -287,7 +323,7 @@ function UsersList() {
                     )
                   }
                 >
-                  <span className={"icon-ban yellowText"}> </span>
+                  <span className={"fad fa-ban yellowText"}> </span>
                 </Fab>
               </Tooltip>
 
@@ -296,11 +332,9 @@ function UsersList() {
                   size="small"
                   style={{ marginRight: "10px" }}
                   className={`cubeFab`}
-                  onClick={() =>
-                    historyClick(`/user/edit/${tableMeta.rowData[0]}`)
-                  }
-                >
-                  <span className={"icon-pencil greenText"}> </span>
+                  onClick={()=> historyClick(EditUser.getPath({id: tableMeta.rowData[0] })) }              
+                   >
+                  <span className={"fad fa-user-pen greenText"}> </span>
                 </Fab>
               </Tooltip>
             </Typography>
@@ -310,59 +344,17 @@ function UsersList() {
     },
   ];
 
-  const options = {
-    filter: true,
-    search: true,
-    print: false,
-    download: false,
-    viewColumns: false,
-    customToolbar: null,
-    selectableRows: "none",
-    filterType: "dropdown",
-    responsive: "stacked",
-    rowsPerPage: 15,
-    searchPlaceholder: "Type any information about user...",
-    textLabels: {
-      body: {
-        noMatch: "Sorry we could not find any records!",
-      },
-      filter: {
-        all: "All Records",
-        title: "OUR FILTERS",
-        reset: "PERFORM RESET",
-      },
-      selectedRows: {
-        text: "rows has been selected",
-        delete: "Delete Row",
-        deleteAria: "Deleted Selected Rows",
-      },
-    },
-  };
+  useEffect(() => {
+    dispatch(getUsersList());
+  }, [dispatch]);
 
-  const handleClickPopupOpen = (title, id) => {
-    setPopup({
-      ...popupData,
-      open: true,
-      title,
-      id,
-    });
-  };
-
-  //   useEffect(() => {
-  //     props.getUsersList();
-  //   }, []);
-  console.log("RERENDER");
   return (
     <Grid>
       <Grid item xs={12}>
-        <div className="col-xl-12 marginBottom-20">
-          {/* <ButtonList buttons={UserButtons.usersList} /> */}
-        </div>
-      </Grid>
-      <Grid item xs={12} className="whiteBlock">
         <MUIDataTable
+          loading={loading}
           title={"All Users List"}
-          data={[]}
+          data={usersList}
           columns={columns}
           options={options}
         />
