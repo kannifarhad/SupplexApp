@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useCallback, useMemo } from "react";
 import {
   Fab,
   Chip,
@@ -11,11 +11,12 @@ import {
 import { MUIDataTable } from "src/components/ThirdPart";
 import { DatePicker } from "src/components/Elements";
 import { useAppDispatch } from "src/store";
-import { getUsersList } from "src/store/users";
+import { getUsersList, requestDeleteUserById } from "src/store/users";
 import { useSelector } from "react-redux";
 import { selectUsersList } from "src/store/users";
 import { useNavigate } from "react-router-dom";
 import { EditUser } from "../routes";
+import { useActionPopover } from "src/components/Molecules/ActionPopover/useActionPopper";
 
 const options = {
   filter: true,
@@ -50,47 +51,27 @@ const options = {
 
 function UsersList() {
   const dispatch = useAppDispatch();
-  const { loading, usersList } = useSelector(selectUsersList);
+  const { loading, } = useSelector(selectUsersList);
   const navigate = useNavigate();
-  const historyClick = (link) => {
-    navigate(link);
+  const historyClick = useCallback(
+    (link) => {
+      navigate(link);
+    },
+    [navigate]
+  );
+
+  const handleDeleteUser = async (id: string) => {
+    await dispatch(requestDeleteUserById(id));
   };
 
-  const handleClose = () => {
-    setPopup({
-      ...popupData,
-      open: false,
-    });
-  };
-
-  const handleSubmit = () => {
-    setPopup({
-      ...popupData,
-      open: false,
-    });
-  };
-
-  const [popupData, setPopup] = React.useState({
-    open: false,
-    title: "",
-    id: "",
-    handleClose,
-    type: "cancel-1",
-    description:
-      "Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.",
-    handleSubmit,
+  const { openPopover, ActionPopoverComponent } = useActionPopover({
+    onConfirm: handleDeleteUser,
+    loading,
   });
 
-  const handleClickPopupOpen = (title, id) => {
-    setPopup({
-      ...popupData,
-      open: true,
-      title,
-      id,
-    });
-  };
+  const handleClickPopupOpen = (title, id) => {};
 
-  const columns = [
+  const columns = useMemo(()=> ([
     {
       name: "id",
       label: "Id",
@@ -285,11 +266,9 @@ function UsersList() {
                   size="small"
                   style={{ marginRight: "10px" }}
                   className={`cubeFab`}
-                  onClick={()=> {
-                    console.log('EditUser.getPath({id: tableMeta.rowData[0] })', EditUser.getPath({id: tableMeta.rowData[0] }));
+                  onClick={() => {
                     // historyClick(EditUser.getPath({id: tableMeta.rowData[0] }))
-                  }
-                } 
+                  }}
                 >
                   <span className={"fad fa-eye blueText"} />
                 </Fab>
@@ -300,12 +279,7 @@ function UsersList() {
                   size="small"
                   style={{ marginRight: "10px" }}
                   className={`cubeFab`}
-                  onClick={() =>
-                    handleClickPopupOpen(
-                      "Seçilmiş istifadəçi silinsin?",
-                      tableMeta.rowData[0]
-                    )
-                  }
+                  onClick={(e) => openPopover(e, tableMeta.rowData[0])}
                 >
                   <span className={"fad fa-trash redText"}> </span>
                 </Fab>
@@ -332,8 +306,10 @@ function UsersList() {
                   size="small"
                   style={{ marginRight: "10px" }}
                   className={`cubeFab`}
-                  onClick={()=> historyClick(EditUser.getPath({id: tableMeta.rowData[0] })) }              
-                   >
+                  onClick={() =>
+                    historyClick(EditUser.getPath({ id: tableMeta.rowData[0] }))
+                  }
+                >
                   <span className={"fad fa-user-pen greenText"}> </span>
                 </Fab>
               </Tooltip>
@@ -342,25 +318,35 @@ function UsersList() {
         },
       },
     },
-  ];
+  ]),[historyClick, openPopover]);
 
+  return (
+    <Grid style={{ padding: "20px 0px" }}>
+      <Grid item xs={8}>
+        {ActionPopoverComponent}
+        <UsersTable columns={columns} />
+      </Grid>
+    </Grid>
+  );
+}
+
+const UsersTable = memo(({ columns }:{columns: any }) => {
+  const dispatch = useAppDispatch();
+  const { loading, usersList } = useSelector(selectUsersList);
+    
   useEffect(() => {
     dispatch(getUsersList());
   }, [dispatch]);
 
   return (
-    <Grid>
-      <Grid item xs={12}>
-        <MUIDataTable
-          loading={loading}
-          title={"All Users List"}
-          data={usersList}
-          columns={columns}
-          options={options}
-        />
-      </Grid>
-    </Grid>
+    <MUIDataTable
+      loading={loading}
+      title={"All Users List"}
+      data={usersList}
+      columns={columns}
+      options={options}
+    />
   );
-}
+});
 
 export default memo(UsersList);

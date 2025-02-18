@@ -16,13 +16,6 @@ export const UserProfile = new SiteRoute({
     component: lazy(() => import("./Profile")),
 });
 
-export const Logout = new SiteRoute({
-    title: "Logout",
-    path: "/logout",
-    description: "logout",
-    component: lazy(() => import("./Logout")),
-});
-
 export const Configuration = new SiteRoute({
     title: "Configuration",
     path: "/config",

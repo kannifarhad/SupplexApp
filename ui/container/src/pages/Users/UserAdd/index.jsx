@@ -1,17 +1,14 @@
 import { Grid } from "@mui/material";
-import ContentWrapper from "../Dashboard/ContentWrapper";
+import ContentWrapper from "../../Dashboard/ContentWrapper";
 import { memo } from "react";
+import  UserAddForm from "./UserAddForm";
 
 function UserAdd({ title, description }) {
   return (
     <ContentWrapper title={title} description={description}>
       <Grid container>
-        <Grid item xs={6}>
-          <Grid container style={{ marginRight: "0px" }}>
-            <Grid item xs={12} style={{ padding: "0px 10px" }}>
-            UserAdd
-            </Grid>
-          </Grid>
+        <Grid item xs={12} style={{ padding: "20px" }}>
+          <UserAddForm />
         </Grid>
       </Grid>
     </ContentWrapper>

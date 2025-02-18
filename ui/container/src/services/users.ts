@@ -7,3 +7,7 @@ export const fetchUsersList = async () => {
     query: UsersList,
   }).then((result)=> result.data?.users);
 };
+
+export const deleteUsersById = async (id: string): Promise<{id: string}> => {
+  return new Promise((resolve) => setTimeout(resolve, 1500)).then(()=> ({id})); // Simulating API call
+};

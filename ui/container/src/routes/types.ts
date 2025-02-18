@@ -42,7 +42,6 @@ export class SiteRoute<TParams extends object = {}> implements RouteDetails {
       if (!params[param]) continue;
       path = path.replace(`:${param}`, params[param]);
     }
-    console.log(`${parentPath}${path}`);
     return `${parentPath}${path}`;
   }
 

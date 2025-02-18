@@ -35,7 +35,7 @@ interface UISimpleSelect extends SelectProps {
   optionRender?: (item: any) => string | ReactJSXElement;
   onChange?: (p: any) => any;
   error?: boolean;
-  label?: JSX.Element;
+  label?: JSX.Element | string;
   labelId?: string;
 }
 

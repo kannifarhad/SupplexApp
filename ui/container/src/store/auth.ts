@@ -8,7 +8,7 @@ import {
 } from "@reduxjs/toolkit";
 import client from "../services/clients/apolloClient";
 import { persistor, RootState } from "./index";
-import { setToken } from "../utils";
+import { setToken, resetToken } from "../utils";
 import { LAST_LOCATION_KEY } from "../constants";
 import { LOGIN, LOGOUT, } from "../services/graphql";
 import { UserRole, LoginMutation, LoginMutationVariables, UserFieldsFragment } from "../types";
@@ -71,13 +71,10 @@ export const authSlice = createSlice({
 //  * @returns void
 //  */
 export const logout = ( keepAlerts?: boolean, keepLastLocation?: boolean ) => async (dispatch: Dispatch) => {
-  await client
-    .mutate({
-      mutation: LOGOUT,
-    })
-    .catch(console.error);
+  await client.mutate({ mutation: LOGOUT, }).catch(console.error);
   await persistor.purge();
   dispatch({ type: "RESET_ALL", keepAlerts });
+  resetToken()
   if(!keepLastLocation) window.localStorage.removeItem(LAST_LOCATION_KEY);
 };
 
@@ -86,5 +83,4 @@ export const {} = authSlice.actions;
 export default authSlice.reducer;
 export const selectAuth = (state: RootState) => state.auth;
 export const selectUser = (state: RootState) => state.auth.user;
-export const isAdmin = (state: RootState) =>
-  state.auth.user?.role === UserRole.ADMIN;
+export const isAdmin = (state: RootState) => state.auth.user?.role === UserRole.ADMIN;

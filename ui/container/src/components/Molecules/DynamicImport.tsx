@@ -11,8 +11,8 @@ export const DynamicImport: React.FC<IProps> = (props) => {
   return (
     <Suspense
       fallback={
-        <div className="flex items-center justify-center h-screen bg-gray-100">
-          <Loader text="Loading..." />
+        <div className="loadingWrapper">
+          <Loader />
         </div>
       }
     >

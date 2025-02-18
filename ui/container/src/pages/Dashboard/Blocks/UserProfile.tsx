@@ -1,22 +1,19 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { toAbsoluteUrl } from '../../../utils';
-// import { userLogout } from '../../../Redux/actions';
+import { useAppDispatch } from "../../../store";
 import { Popover, List, ListItem, Avatar } from '@mui/material';
 import { Trans } from "react-i18next";
-import { selectUser } from "../../../store/auth";
+import { logout, selectUser } from "../../../store/auth";
 
 function UserProfile() {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigation = useNavigate();
+  const dispatch = useAppDispatch();
+
   const open = Boolean(anchorEl);
   const user = useSelector(selectUser);
   const id = open ? 'profileDropdown' : undefined;
-
-  const logoutHandle = () => {
-    navigation('/logout')
-  };
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -89,8 +86,8 @@ function UserProfile() {
                 </Link>
               </ListItem>
 
-              <ListItem button className="notificationsItem">
-                <button onClick={logoutHandle}>
+              <ListItem className="notificationsItem" >
+                <button onClick={() => dispatch(logout(false, false))} style={{ cursor: "pointer" }}>
                   <div className="notificationsIcon">
                     <i className="fad fa-sign-out redText" />
                   </div>
