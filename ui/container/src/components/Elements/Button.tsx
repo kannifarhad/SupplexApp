@@ -1,13 +1,14 @@
 import { CSSProperties } from 'react';
-import { Button as ButtonMUI, ButtonProps, SxProps } from '@mui/material';
+import { Button as ButtonMui ,ButtonProps, SxProps } from '@mui/material';
 import LoadingCircle from './LoadingCircle';
-import clsx from 'clsx'
+import { useNavigate } from 'react-router-dom';
+import styled from "@emotion/styled";
 
 export type ButtonPropsType = {
   title?: string | JSX.Element;
   size?: ButtonProps['size'];
   variant?: ButtonProps['variant'];
-  color?: ButtonProps['color'] | 'red' | 'blue' | 'yellow' | 'orange' | 'green' | 'gray' | 'btn-info' | 'default';
+  color?: ButtonProps['color'] | 'red' | 'purple' | 'yellow' | 'orange' | 'green' | 'gray' | 'btn-info' | 'default';
   type?: ButtonProps["type"];
   onClick?: (e?: React.MouseEvent<HTMLButtonElement> | any) => any;
   key?: number;
@@ -30,27 +31,52 @@ export type ButtonPropsType = {
   sx?: SxProps;
 };
 
-export const Button: React.FC<ButtonPropsType> = (props) => {
-  const { title, color, icon, iconright, onClick, isLoading, className, children, sx, ...rest } = props;
+const buttonColors = {
+  purple: { background: "#485dc6", hover: "#8095ff" },
+  red: { background: "#e83c3c", hover: "#d01919" },
+  default: { background: "#2185d0", hover: "#0d71bb" },
+  orange: { background: "#f2711c", hover: "#f26202" },
+  green: { background: "#63ac74", hover: "#3d864e" },
+  yellow: { background: "#e8b316", hover: "#daa300" },
+};
+
+export const StyledButton = styled(ButtonMui)(({ colorType = "default" }:{ colorType: ButtonPropsType['color']}) => {
+  const { background, hover } = buttonColors[colorType] || buttonColors.default;
+
+  return {
+    backgroundColor: background,
+    color: "#fff",
+    borderColor: background,
+    "&:hover, &.active": {
+      backgroundColor: hover,
+      borderColor: background,
+      color: "#fff",
+    },
+    "&.MuiButton-outlined": {
+      backgroundColor: "#fff",
+      color: background,
+      "&:hover": {
+        backgroundColor: background,
+        color: "#fff",
+      },
+    },
+  };
+});
+
+export const Button: React.FC<ButtonPropsType> = ({ title, color, icon, iconright, onClick, isLoading, children, variant="outlined", to, sx, ...rest }) => {
+  const navigate = useNavigate();
+  const handleOnClick = to ? ()=> navigate(to) : onClick;
 
   return (
-    <ButtonMUI
-      color="primary"
-      variant="outlined"
-      className={clsx('buttonDefault', className, {
-        'redButton': color === "red",
-        'blueButton': color === "blue",
-        'yellowButton': color === "yellow",
-        'orangeButton': color === "orange",
-        'greenButton': color === "green",
-        'defaultButton': color === "default",
-      })}
+    <StyledButton
+      variant={variant}
+      colorType={color}
       sx={{
         textTransform: "inherit",
         ...sx
       }}
       {...rest}
-      onClick={onClick}
+      onClick={handleOnClick}
     >
       {
         isLoading &&
@@ -67,15 +93,10 @@ export const Button: React.FC<ButtonPropsType> = (props) => {
         </span>
       }
 
-      {icon && !iconright && <span style={{ marginRight: "10px" }}>
-        {icon}
-      </span>}
-      {children}
-      {title}
-      {icon && iconright && <span style={{ marginLeft: "10px" }}>
-        {icon}
-      </span>}
-    </ButtonMUI>
+      {icon && !iconright && <span style={{ marginRight: 10 }}>{icon}</span>}
+      {title || children}
+      {icon && iconright && <span style={{ marginLeft: 10 }}>{icon}</span>}
+    </StyledButton>
   );
 };
 

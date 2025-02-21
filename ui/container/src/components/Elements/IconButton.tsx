@@ -1,13 +1,13 @@
 import { CSSProperties } from "react";
-import { IconButton, Tooltip, IconButtonProps, SxProps, ButtonProps } from "@mui/material";
+import { IconButton, Tooltip, IconButtonProps, SxProps } from "@mui/material";
 import clsx from "clsx";
+import styled from "@emotion/styled";
 
 export type UIIconButtonProps = {
   title: string;
   icon: JSX.Element;
   color?: "red" | "blue" | "yellow" | "orange" | "green" | "default";
   className?: string;
-  variant?: string;
   size?: IconButtonProps["size"];
   disabled?: boolean;
   style?: CSSProperties;
@@ -16,43 +16,61 @@ export type UIIconButtonProps = {
   sx?: SxProps;
 };
 
-export default (props: UIIconButtonProps) => {
-  const { title, color, icon, className, sx, ...rest } = props;
+// Define colors
+const buttonColors: Record<string, { background: string; hover: string }> = {
+  default: { background: "#f1f1f1", hover: "#e0e0e0" },
+  red: { background: "#e83c3c", hover: "#d01919" },
+  blue: { background: "#2185d0", hover: "#0d71bb" },
+  orange: { background: "#f2711c", hover: "#f26202" },
+  green: { background: "#63ac74", hover: "#3d864e" },
+  yellow: { background: "#e8b316", hover: "#daa300" },
+};
 
+// Styled IconButton with dynamic colors
+const StyledIconButton = styled(IconButton)<{ colorType?: string }>(({ colorType = "default" }) => {
+  const { background, hover } = buttonColors[colorType] || buttonColors.default;
+
+  return {
+    backgroundColor: background,
+    borderRadius: "5px",
+    minWidth: "35px",
+    transition: "background 0.2s ease-in-out",
+    "&:hover": {
+      backgroundColor: hover,
+    },
+    "&.MuiIconButton-sizeSmall": {
+      fontSize: "0.85rem",
+      padding: "8px",
+    },
+    "&.groupSplit": {
+      padding: "8px 0px",
+      fontSize: "1.25rem",
+    },
+  };
+});
+
+const UIIconButton: React.FC<UIIconButtonProps> = ({
+  title,
+  color = "default",
+  icon,
+  className,
+  sx,
+  ...rest
+}) => {
   return (
     <Tooltip title={title} arrow>
       <span>
-        <IconButton
-          color="primary"
-          className={clsx("buttonDefault", className, {
-            'redButton': color === "red",
-            'blueButton': color === "blue",
-            'yellowButton': color === "yellow",
-            'orangeButton': color === "orange",
-            'greenButton': color === "green",
-            'defaultButton': color === "default",
-          })}
-          sx={{
-            textTransform: "inherit",
-            borderRadius: "5px",
-            background: "#f1f1f1",
-            minWidth: "35px",
-            "&.groupSplit": {
-              padding: "8px 0px",
-              fontSize: "1.25rem",
-            },
-            "&.MuiIconButton-sizeSmall": {
-              fontSize: "0.85rem",
-              padding: "8px",
-            },
-            ...sx
-          }}
-          variant="outlined"
+        <StyledIconButton
+          colorType={color}
+          className={clsx("buttonDefault", className)}
+          sx={sx}
           {...rest}
         >
           {icon}
-        </IconButton>
+        </StyledIconButton>
       </span>
     </Tooltip>
   );
 };
+
+export default UIIconButton;

@@ -48,5 +48,6 @@ export const StyledDashboardSubHeader = styled.div`
   }
   .subHeaderToolbar {
     margin-left: auto;
+    padding: 0px 30px;
   }
 `;

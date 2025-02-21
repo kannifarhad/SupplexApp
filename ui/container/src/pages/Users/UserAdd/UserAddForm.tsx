@@ -12,6 +12,7 @@ import {
   SimpleSelect,
   ButtonGroup,
 } from "src/components/Elements";
+import { AllUsers } from "../routes";
 // import FileManagerPopup from "../../Components/Elements/FileManagerPopup";
 // import Translate from "../../Utils/Translate";
 
@@ -119,16 +120,16 @@ const UserAddForm: React.FC<{
   };
 
   return (
-    <Grid>
-      <Grid item xs={6}>
-        <div className="whiteBlock">
-          <div className="blockHead">
-            <h3>User Information</h3>
-            <span>The required fields must be filled.</span>
-          </div>
-          <div className="blockBody">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid container spacing={2} style={{padding: "20px"}}>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Grid>
+        <Grid item xs={6}>
+          <div className="whiteBlock">
+            <div className="blockHead">
+              <h3>User Information</h3>
+              <span>The required fields must be filled.</span>
+            </div>
+            <div className="blockBody">
+              <Grid container spacing={2} style={{ padding: "20px" }}>
                 <Grid item xs={12}>
                   <Controller
                     name="name"
@@ -206,21 +207,31 @@ const UserAddForm: React.FC<{
                 </Grid>
               </Grid>
 
-              <ButtonGroup
-                buttonList={[
-                  {
-                    type: "submit",
-                    title: "Save and Quit",
-                    color: "green",
-                    onClick: handleSubmit(onSubmit),
-                  },
-                ]}
-              />
-            </form>
+            </div>
           </div>
-        </div>
+        </Grid>
+        <Grid item xs={12}>
+          <ButtonGroup
+            buttonList={[
+              {
+                type: "submit",
+                title: "Save and Quit",
+                color: "green",
+                icon:<span className="fad fa-save" />,
+                onClick: handleSubmit(onSubmit),
+              },
+              {
+                type: "reset",
+                title: "Cancel",
+                color: "info",
+                icon:<span className="fad fa-cancel" />,
+                onClick: ()=> navigate(AllUsers.getPath({})),
+              },
+            ]}
+          />
+        </Grid>
       </Grid>
-    </Grid>
+    </form>
   );
 };
 

@@ -13,6 +13,8 @@ interface RouteDetails {
   ignoredParams: string[];
   children: RouteDetails[];
   parentPath: string;
+  redirect?: string;
+  toolbar?: JSX.Element;
   getPath: (params?: any) => string;
 }
 
@@ -30,6 +32,8 @@ export class SiteRoute<TParams extends object = {}> implements RouteDetails {
   accessRoles?: string[] = [];
   iconName: string = "";
   children: RouteDetails[] = [];
+  toolbar?: JSX.Element;
+  redirect?: string | undefined;
 
   constructor(data: Partial<SiteRoute>) {
     Object.assign(this, data);

@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { SiteRoute } from "../../routes/types";
+import { ButtonGroup } from "src/components/Elements";
 
 const MAIN_PATH = "/users";
 const ACCESS_MAIN_KEY = "usersManagement";
@@ -27,27 +28,73 @@ const userManagementAccessRules = {
   },
 };
 
+export const AddUser = new SiteRoute<{}>({
+  ...userManagementAccessRules.accesses.addUser,
+  parentPath: MAIN_PATH,
+  path: "/add",
+  component: lazy(() => import("./UserAdd")),
+  toolbar: (
+    <ButtonGroup
+      buttonList={[
+        {
+          type: "button",
+          title: "All Users",
+          color: "info",
+          icon: <span className="fad fa-users" />,
+          to: `${MAIN_PATH}/list`,
+        },
+      ]}
+    />
+  ),
+  showInMenu: true,
+});
+
 export const EditUser = new SiteRoute<{ id: string }>({
   ...userManagementAccessRules.accesses.editUser,
   parentPath: MAIN_PATH,
   path: "/edit/:id",
   component: lazy(() => import("./UserEdit")),
+  toolbar: (
+    <ButtonGroup
+      buttonList={[
+        {
+          type: "button",
+          title: "Add New User",
+          color: "green",
+          icon: <span className="fad fa-user-plus" />,
+          to: `${MAIN_PATH}/${AddUser.path}`,
+        },
+        {
+          type: "button",
+          title: "All Users",
+          color: "info",
+          icon: <span className="fad fa-users" />,
+          to: `${MAIN_PATH}/list`,
+        },
+      ]}
+    />
+  ),
   showInMenu: false,
 });
 
-export const AddUser = new SiteRoute<{ id: string }>({
-  ...userManagementAccessRules.accesses.addUser,
-  parentPath: MAIN_PATH,
-  path: "/add",
-  component: lazy(() => import("./UserAdd")),
-  showInMenu: true,
-});
-
-export const AllUsers = new SiteRoute<{ id: string }>({
+export const AllUsers = new SiteRoute<{}>({
   ...userManagementAccessRules.accesses.usersList,
   parentPath: MAIN_PATH,
   path: "/list",
   component: lazy(() => import("./UsersList")),
+  toolbar: (
+    <ButtonGroup
+      buttonList={[
+        {
+          type: "button",
+          title: "Add New User",
+          color: "green",
+          icon: <span className="fad fa-user-plus" />,
+          to: `${MAIN_PATH}/${AddUser.path}`,
+        },
+      ]}
+    />
+  ),
   showInMenu: true,
 });
 

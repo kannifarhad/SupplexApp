@@ -156,7 +156,6 @@ function Login() {
               <Button
                 fullWidth
                 variant="contained"
-                color="blue"
                 isLoading={loading}
                 disabled={loading || !isValid}
                 onClick={handleSubmit((values) => {
