@@ -20,7 +20,7 @@ export type ButtonPropsType = {
 } & Omit<ButtonProps, "color" | "title">;
 
 export const StyledButton = styled(ButtonMui)<{ colorType: ButtonPropsType['color'], theme?: Theme}>(({ theme, colorType = "default" }) => {
-  const { background, hover } = theme.customStyles.buttons.colors[colorType] ||theme.customStyles.buttons.colors.default;
+  const { background, hover } = theme.customStyles.buttons.colors[colorType] || theme.customStyles.buttons.colors.default;
 
   return {
     backgroundColor: background,
@@ -32,7 +32,7 @@ export const StyledButton = styled(ButtonMui)<{ colorType: ButtonPropsType['colo
       color: "#fff",
     },
     "&.MuiButton-outlined": {
-      backgroundColor: "#fff",
+      backgroundColor: "transparent",
       color: background,
       "&:hover": {
         backgroundColor: background,

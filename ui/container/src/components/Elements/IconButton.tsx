@@ -12,16 +12,12 @@ const StyledIconButton = styled(IconButton)<{ colorType?: string, theme?: Theme 
   const { background, hover } = theme.customStyles.buttons.colors[colorType] ||theme.customStyles.buttons.colors.default;
 
   return {
-    backgroundColor: background,
+    // backgroundColor: background,
     borderRadius: "5px",
     minWidth: "35px",
     transition: "background 0.2s ease-in-out",
     "&:hover": {
       backgroundColor: hover,
-    },
-    "&.MuiIconButton-sizeSmall": {
-      fontSize: "0.85rem",
-      padding: "8px",
     },
     "&.groupSplit": {
       padding: "8px 0px",

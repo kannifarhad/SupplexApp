@@ -1,5 +1,7 @@
 import { createTheme, Theme } from "@mui/material/styles";
 import { lightPalette, darkPalette, ThemeCollectionType } from './palettes';
+import { deepmerge } from "@mui/utils";
+import componentsOverride from "./componentsOverride";
 
 // Extend MUI's Theme to include custom colors
 declare module "@mui/material/styles" {
@@ -23,7 +25,7 @@ const typography = {
 };
 
 // Create themes
-export const lightTheme: Theme = createTheme({
+export const lightTheme: Theme = createTheme(deepmerge({
   typography,
   palette: {
     mode: "light",
@@ -44,14 +46,33 @@ export const lightTheme: Theme = createTheme({
     }
   },
   customStyles: lightPalette,
-});
+}, componentsOverride));
 
-export const darkTheme: Theme = createTheme({
+export const darkTheme: Theme = createTheme(deepmerge({
   typography,
   palette: {
     mode: "dark",
     primary: { main: darkPalette.mainMiddleColor },
     background: { default: darkPalette.backgroundColor },
   },
+  components:{
+    MuiPaper:{
+      styleOverrides: {
+        root:{
+          background:"#364553",
+        }
+      }
+    },
+    MuiCssBaseline:{
+      styleOverrides:{
+        ':root':{
+          colorScheme: "dark"
+        },
+        body:{
+          colorScheme: "dark"
+        },
+      }
+    }
+  },
   customStyles: darkPalette,
-});
+}, componentsOverride));

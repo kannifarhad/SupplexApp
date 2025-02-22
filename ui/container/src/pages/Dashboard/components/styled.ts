@@ -6,7 +6,7 @@ export const StyledDashboardSubHeader = styled.div<{
 }>(({ theme }) => {
   return {
     background: theme.customStyles.header.background,
-    borderBottom:  `1px solid ${theme?.customStyles.sideBar.borderColor}`,
+    borderBottom:  `1px solid ${theme?.customStyles.header.borderColor}`,
     width: "100%",
     display: "flex",
     flexDirection: "row",
@@ -19,7 +19,7 @@ export const StyledDashboardSubHeader = styled.div<{
       alignItems: "center",
 
       ".title": {
-        borderRight: `1px solid ${theme?.customStyles.sideBar.borderColor}`,
+        borderRight: `1px solid ${theme?.customStyles.header.borderColor}`,
         fontWeight: 600,
         color: theme.customStyles.text.headings,
         padding: "10px 25px",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { InputAdornment, IconButton, Grid } from "@mui/material";
+import { InputAdornment, IconButton, Grid, Paper } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -123,7 +123,7 @@ const UserAddForm: React.FC<{
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid>
         <Grid item xs={6}>
-          <div className="whiteBlock">
+          <Paper>
             <div className="blockHead">
               <h3>User Information</h3>
               <span>The required fields must be filled.</span>
@@ -208,13 +208,15 @@ const UserAddForm: React.FC<{
               </Grid>
 
             </div>
-          </div>
+          </Paper>
         </Grid>
         <Grid item xs={12}>
+          <Paper style={{padding:'10px', marginTop:"20px"}} elevation={0}>
           <ButtonGroup
             buttonList={[
               {
                 type: "submit",
+                variant: "contained",
                 title: "Save and Quit",
                 color: "green",
                 icon:<span className="fad fa-save" />,
@@ -223,12 +225,14 @@ const UserAddForm: React.FC<{
               {
                 type: "reset",
                 title: "Cancel",
-                color: "info",
+                variant: "contained",
+                color: "yellow",
                 icon:<span className="fad fa-cancel" />,
                 onClick: ()=> navigate(AllUsers.getPath({})),
               },
             ]}
           />
+          </Paper>
         </Grid>
       </Grid>
     </form>

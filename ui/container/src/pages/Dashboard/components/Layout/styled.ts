@@ -37,18 +37,23 @@ export const StyledDashboardContent = styled.div`
   flex-grow: 1;
 `;
 
-export const StyledDashboardContainer = styled.div`
-  width: 100%;
-  position: relative;
-  padding: 59px 0px 50px 0px;
-  min-width: 0;
-  .dashboardContentWrapper {
-    height: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-`;
+export const StyledDashboardContainer = styled.div<{
+  theme?: Theme;
+}>(({ theme }) => {
+  return {
+    width: "100%",
+    position: "relative",
+    padding: "59px 0px 50px 0px",
+    minWidth: "0",
+    background: theme.customStyles.dashboarContinaerBg,
+    ".dashboardContentWrapper": {
+      height: "100%",
+      overflow: "hidden",
+      display: "flex",
+      flexDirection: "column",
+    },
+  };
+});
 
 export const StyledDashboardWraper = styled.div`
   min-height: 100%;

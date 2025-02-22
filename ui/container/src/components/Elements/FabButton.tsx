@@ -13,8 +13,8 @@ const StyledFabButton = styled(Fab)<{ colorType?: string; theme?: Theme }>(
     const { background, hover } = theme.customStyles.buttons.colors[colorType] || theme.customStyles.buttons.colors.default;
     return {
       borderRadius: "5px",
-      background: theme.customStyles?.colors?.lightGrey?.light,
-      border: `1px solid ${theme.customStyles?.colors?.lightGrey?.main}`,
+      background: theme.customStyles?.buttons.outlineBg,
+      border: `1px solid ${theme.customStyles?.buttons.border}`,
       boxShadow: "none",
       "& span": {
         fontSize: "18px",

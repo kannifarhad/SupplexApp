@@ -9,13 +9,6 @@ export const DashboardRoutes = new SiteRoute({
     component: lazy(() => import("./Dashboard")),
 });
 
-export const UserProfile = new SiteRoute({
-    title: "User Profile",
-    path: "/profile",
-    description: "Your Profile where you can view or edit your information",
-    component: lazy(() => import("./Profile")),
-});
-
 export const Configuration = new SiteRoute({
     title: "Configuration",
     path: "/config",

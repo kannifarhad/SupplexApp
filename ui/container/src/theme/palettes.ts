@@ -1,4 +1,6 @@
+import { cloneDeep } from 'lodash';
 import * as animations from './animations';
+import { deepmerge } from "@mui/utils";
 
 type ThemeColor = {
   light: string;
@@ -25,10 +27,13 @@ const colorCollection: ColorCollection = {
 export const defaultPallete = {
   mainMiddleColor: "#0492f2",
   backgroundColor: colorCollection.lightGrey.light,
+  dashboarContinaerBg: "#f2f3f9",
   borderRadius: "5px",
   colors: colorCollection,
   animations,
   buttons: {
+    outlineBg: colorCollection?.lightGrey?.main,
+    border: colorCollection?.lightGrey?.dark,
     colors: {
       red: {
         background: colorCollection.red.light,
@@ -72,9 +77,10 @@ export const defaultPallete = {
 export type ThemeCollectionType = typeof defaultPallete;
 
 export const lightPalette = defaultPallete;
-export const darkPalette: ThemeCollectionType = {
-  ...defaultPallete,
-  backgroundColor: colorCollection.darkGrey.dark,
+
+export const darkPalette: ThemeCollectionType = deepmerge(defaultPallete, {
+  backgroundColor: colorCollection.black.dark,
+  dashboarContinaerBg: "#2f3b46",
   header: {
     background: colorCollection.black.main,
     borderColor: colorCollection.darkGrey.dark,
@@ -89,5 +95,9 @@ export const darkPalette: ThemeCollectionType = {
     active: colorCollection.blue.main,
     headings: colorCollection.lightGrey.main,
     main: colorCollection.lightGrey.dark,
-  }
-};
+  },
+  buttons:{
+    outlineBg: colorCollection.black.dark,
+    border: colorCollection.darkGrey.dark,
+  },
+});

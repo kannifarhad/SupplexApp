@@ -12,7 +12,7 @@ const userManagementAccessRules = {
   accesses: {
     usersList: {
       accessId: `${ACCESS_MAIN_KEY}/usersList`,
-      title: "View Users List",
+      title: "All Users List",
       description: "Viewing the list of users in the organization",
     },
     editUser: {
@@ -22,11 +22,99 @@ const userManagementAccessRules = {
     },
     addUser: {
       accessId: `${ACCESS_MAIN_KEY}/addUser`,
-      title: "Add new users",
+      title: "Add New User",
       description: "Adding new users to the organization",
+    },
+    userGroupList: {
+      accessId: `${ACCESS_MAIN_KEY}/userGroupsList`,
+      title: "User Groups",
+      description: "Adding new users to the organization",
+    },
+    editUserGroup: {
+      accessId: `${ACCESS_MAIN_KEY}/editUserGroups`,
+      title: "Edit User Group",
+      description: "Editing users informations",
+    },
+    addUserGroup: {
+      accessId: `${ACCESS_MAIN_KEY}/addUserGroups`,
+      title: "Add New User Group",
+      description: "Adding new users groups to the organization",
     },
   },
 };
+
+export const UserProfile = new SiteRoute({
+  title: "User Profile",
+  path: "/profile",
+  description: "Your Profile where you can view or edit your information",
+  component: lazy(() => import("./Profile")),
+});
+
+export const UserGroupsList = new SiteRoute<{}>({
+  ...userManagementAccessRules.accesses.userGroupList,
+  parentPath: MAIN_PATH,
+  path: "/groups",
+  iconName: "fa-user-group",
+  component: lazy(() => import("./UserAdd")),
+  toolbar: (
+    <ButtonGroup
+      buttonList={[
+        {
+          type: "button",
+          title: "All Users",
+          color: "info",
+          icon: <span className="fad fa-user-group" />,
+          to: `${MAIN_PATH}/list`,
+        },
+      ]}
+    />
+  ),
+  showInMenu: true,
+});
+
+export const UserGroupsAdd = new SiteRoute<{}>({
+  ...userManagementAccessRules.accesses.addUserGroup,
+  parentPath: MAIN_PATH,
+  path: "/groups/add",
+  iconName: "fa-users-medical",
+  component: lazy(() => import("./UserAdd")),
+  toolbar: (
+    <ButtonGroup
+      buttonList={[
+        {
+          type: "button",
+          title: "All Users",
+          color: "info",
+          icon: <span className="fad fa-user-group" />,
+          to: `${MAIN_PATH}/list`,
+        },
+      ]}
+    />
+  ),
+  showInMenu: true,
+});
+
+export const UserGroupsEdit = new SiteRoute<{id: string}>({
+  ...userManagementAccessRules.accesses.editUserGroup,
+  parentPath: MAIN_PATH,
+  path: "/groups/edit/:id",
+  iconName: "fa-users-gear",
+  component: lazy(() => import("./UserAdd")),
+  toolbar: (
+    <ButtonGroup
+      buttonList={[
+        {
+          type: "button",
+          title: "All Users",
+          color: "info",
+          icon: <span className="fad fa-user-group" />,
+          to: `${MAIN_PATH}/list`,
+        },
+      ]}
+    />
+  ),
+  showInMenu: true,
+});
 
 export const AddUser = new SiteRoute<{}>({
   ...userManagementAccessRules.accesses.addUser,
@@ -109,7 +197,7 @@ export const UserManagement = new SiteRoute({
   // component: lazy(() => import("./UsersWrapper")),
   iconName: "fa-user",
   showInMenu: true,
-  children: [AllUsers, EditUser, AddUser],
+  children: [AllUsers, EditUser, AddUser, UserGroupsList, UserGroupsAdd],
 });
 
 export default UserManagement;
