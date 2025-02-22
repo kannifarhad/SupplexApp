@@ -1,10 +1,10 @@
 import { memo } from "react";
-import SubHeader from "./Blocks/SubHeader";
+import SubHeader from "./components/SubHeader";
 
-function ContentWrapper({ children, title, description, toolbar }:{children: any, title?: string, description?: string, toolbar?: JSX.Element}) {
+function ContentWrapper({ children, ...rest }:{children: any, title?: string, description?: string, toolbar?: JSX.Element, iconName?: string}) {
   return (
     <>
-      <SubHeader title={title} description={description} toolbar={toolbar} />
+      <SubHeader {...rest} />
       <div className="dashboardContent">{children}</div>
     </>
   );

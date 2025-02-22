@@ -5,7 +5,7 @@ import { DashBoardInfoBlock } from "../../components/Molecules";
 import { Grid } from "@mui/material";
 import { Helmet } from "react-helmet-async";
 import { useTranslation, Trans } from "react-i18next";
-import Clock from "./Blocks/Clock";
+import Clock from "./components/Clock";
 
 export default function Dashboard({ title, description }) {
   const { t } = useTranslation();

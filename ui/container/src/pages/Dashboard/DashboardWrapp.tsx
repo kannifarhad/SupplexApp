@@ -1,19 +1,11 @@
-import React, { memo } from "react";
-import LeftSide from "./Blocks/LeftSide";
-import Header from "./Blocks/Header";
-import Footer from "./Blocks/Footer";
-import clsx from "clsx";
-import { useSelector } from "react-redux";
-import { selectNavigation } from "../../store/navigation";
+import { memo } from "react";
+import LeftSide from "./components/SideBar/LeftSide";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function DashboardWrapp({ children }) {
-  const { sidebarCollapsed } = useSelector(selectNavigation);
   return (
-    <div
-      className={clsx("dashboardWrapp", {
-        sideMenuMimimise: !sidebarCollapsed,
-      })}
-    >
+    <div className="dashboardWrapp">
       <LeftSide />
       <div className="dashboardContainer">
         <Header />

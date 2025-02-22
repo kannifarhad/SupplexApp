@@ -10,11 +10,8 @@ import store, { persistor } from "./store";
 import "./translations";
 import "./assets/styles/PerfectScroll.css";
 import "./assets/styles/Index.less";
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import theme from "./theme"; // Import your custom theme
-
-import { ThemeProvider, CssBaseline } from "@mui/material";
-
+import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "./theme"; // Import your custom theme
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -22,7 +19,7 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <PersistGate loading={null} persistor={persistor}>
           <HelmetProvider>
             <App />

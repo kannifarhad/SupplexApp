@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation, Trans } from "react-i18next";
-import image404 from './Blocks/Assets/images/403.svg';
+import image404 from './components/Assets/images/403.svg';
 import { Button } from '../../components/Elements';
 import { Box } from '@mui/material';
 

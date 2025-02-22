@@ -32,6 +32,7 @@ export const AddUser = new SiteRoute<{}>({
   ...userManagementAccessRules.accesses.addUser,
   parentPath: MAIN_PATH,
   path: "/add",
+  iconName: "fa-user-plus",
   component: lazy(() => import("./UserAdd")),
   toolbar: (
     <ButtonGroup
@@ -52,6 +53,7 @@ export const AddUser = new SiteRoute<{}>({
 export const EditUser = new SiteRoute<{ id: string }>({
   ...userManagementAccessRules.accesses.editUser,
   parentPath: MAIN_PATH,
+  iconName: "fa-user-edit",
   path: "/edit/:id",
   component: lazy(() => import("./UserEdit")),
   toolbar: (
@@ -62,7 +64,7 @@ export const EditUser = new SiteRoute<{ id: string }>({
           title: "Add New User",
           color: "green",
           icon: <span className="fad fa-user-plus" />,
-          to: `${MAIN_PATH}/${AddUser.path}`,
+          to: `${MAIN_PATH}${AddUser.path}`,
         },
         {
           type: "button",
@@ -80,8 +82,9 @@ export const EditUser = new SiteRoute<{ id: string }>({
 export const AllUsers = new SiteRoute<{}>({
   ...userManagementAccessRules.accesses.usersList,
   parentPath: MAIN_PATH,
+  iconName: "fa-users",
   path: "/list",
-  component: lazy(() => import("./UsersList")),
+  component: lazy(() => import("./UsersList/index")),
   toolbar: (
     <ButtonGroup
       buttonList={[
@@ -90,7 +93,7 @@ export const AllUsers = new SiteRoute<{}>({
           title: "Add New User",
           color: "green",
           icon: <span className="fad fa-user-plus" />,
-          to: `${MAIN_PATH}/${AddUser.path}`,
+          to: `${MAIN_PATH}${AddUser.path}`,
         },
       ]}
     />

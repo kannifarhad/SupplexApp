@@ -2,9 +2,9 @@ import { Box, Grid, Paper } from "@mui/material";
 import ContentWrapper from "../Dashboard/ContentWrapper";
 import { memo } from "react";
 
-function UserEdit({ title, description, toolbar }) {
+function UserEdit(props) {
   return (
-    <ContentWrapper title={title} description={description} toolbar={toolbar}>
+    <ContentWrapper {...props}>
       <Grid container>
         <Grid item xs={6}>
           <Box padding={2} fontSize={14}>

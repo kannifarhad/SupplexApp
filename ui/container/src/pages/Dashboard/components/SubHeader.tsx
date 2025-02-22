@@ -19,7 +19,7 @@ const SubHeader = ({
   return (
     <StyledDashboardSubHeader>
       <div className="subHeaderInfo">
-        <div className="title">{titleParsed}</div>
+        <div className="title">{iconName && <span className={`icon fad ${iconName}`} />}{titleParsed}</div>
         <div className="description">{descriptionParsed}</div>
       </div>
       <div className="subHeaderToolbar">

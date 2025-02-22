@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { toAbsoluteUrl } from '../../../utils';
-import { useAppDispatch } from "../../../store";
+import { toAbsoluteUrl } from '../../../../utils';
+import { useAppDispatch } from "../../../../store";
 import { Popover, List, ListItem, Avatar } from '@mui/material';
 import { Trans } from "react-i18next";
-import { logout, selectUser } from "../../../store/auth";
+import { logout, selectUser } from "../../../../store/auth";
 
 function UserProfile() {
   const [anchorEl, setAnchorEl] = React.useState(null);

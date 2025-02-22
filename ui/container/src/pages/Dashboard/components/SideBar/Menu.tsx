@@ -2,17 +2,21 @@ import React, { useRef, memo, useMemo, useCallback } from "react";
 import { useLocation, Link } from "react-router-dom";
 import clsx from "clsx";
 import { List, ListItem } from "@mui/material";
-import { SidebarRoutes } from "../../../routes";
-import { SiteRoute } from "../../../routes/types";
-import { selectUser } from "../../../store/auth";
+import { SidebarRoutes } from "../../../../routes";
+import { SiteRoute } from "../../../../routes/types";
+import { selectUser } from "../../../../store/auth";
 import { useSelector } from "react-redux";
+import { StyledSideMenuCont } from "./styled";
+import { selectSideBar } from "src/store/dashboard";
+import { classNames } from "src/utils/classNames";
 
 const MenuBar = () => {
   const { pathname } = useLocation();
   const me = useSelector(selectUser);
+  const sidebarCollapsed  = useSelector(selectSideBar);
 
   return (
-    <div className="asideMenuCont">
+    <StyledSideMenuCont sidebarCollapsed={sidebarCollapsed} className={classNames({"sideMenuMimimise": !sidebarCollapsed})}>
       <List className="asideMenuUl">
         {Object.entries(SidebarRoutes).map(([index, item]) => (
           <React.Fragment key={`menuList${index}`}>
@@ -20,7 +24,7 @@ const MenuBar = () => {
           </React.Fragment>
         ))}
       </List>
-    </div>
+    </StyledSideMenuCont>
   );
 };
 

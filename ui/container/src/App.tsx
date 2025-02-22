@@ -22,14 +22,14 @@ const getFullPath = (parentRoute: string | undefined, path: string): string => {
 
 const renderRoutes = ({ routes, parentRoute }: RenderRoutesProps) => {
   return routes.map((route, index) => {
-    const { path, title, description, toolbar, component: Component, children } = route;
+    const { path, title, description, toolbar, iconName, component: Component, children } = route;
     const fullPath = getFullPath(parentRoute, path);
     if(parentRoute){
         return (
             <Route
               key={index + fullPath}
               path={fullPath}
-              element={Component ? <DynamicImport component={Component} componentProps={{ title, description, toolbar }} /> : <Outlet />}
+              element={Component ? <DynamicImport component={Component} componentProps={{ title, description, toolbar, iconName }} /> : <Outlet />}
             >
               {children && renderRoutes({routes: children, parentRoute: path })}
             </Route>
@@ -42,7 +42,7 @@ const renderRoutes = ({ routes, parentRoute }: RenderRoutesProps) => {
         element={
           <DashboardWrapp>
             <ProtectedRoute accessRoles={route.accessRoles}>
-              {Component ? <DynamicImport component={Component} componentProps={{ title, description, toolbar }}/> : <Outlet />}
+              {Component ? <DynamicImport component={Component} componentProps={{ title, description, toolbar, iconName }}/> : <Outlet />}
             </ProtectedRoute>
           </DashboardWrapp>
         }

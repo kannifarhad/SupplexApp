@@ -21,20 +21,20 @@ import { resetToken } from "../utils";
 import auth, { authSlice } from "./auth";
 import userManagement from "./users";
 import error from "./error";
-import navigation, {navigationSlice}  from "./navigation";
+import dashboard, {dashboardSlice}  from "./dashboard";
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: [authSlice.name, navigationSlice.name],
+  whitelist: [authSlice.name, dashboardSlice.name],
   stateReconciler: autoMergeLevel2,
 };
 
 const appReducer = combineReducers({
   auth,
   error,
-  navigation,
+  dashboard,
   userManagement
 });
 

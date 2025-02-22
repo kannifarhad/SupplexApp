@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from "react-i18next";
-import { LangList } from "../../../translations";
+import { LangList } from "../../../../translations";
 import { Popover, Paper, Avatar } from '@mui/material';
 
 import clsx from 'clsx';

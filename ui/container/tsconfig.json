@@ -1,12 +1,8 @@
 {
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "noImplicitAny": false,
     "baseUrl": ".",
     "allowJs": true,
@@ -23,12 +19,5 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src"
-  ],
-  "settings": {
-    "import/resolver": {
-      "typescript": {}
-    }
-  }
+  "include": ["src"]
 }

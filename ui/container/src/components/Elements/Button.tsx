@@ -1,47 +1,26 @@
-import { CSSProperties } from 'react';
-import { Button as ButtonMui ,ButtonProps, SxProps } from '@mui/material';
-import LoadingCircle from './LoadingCircle';
-import { useNavigate } from 'react-router-dom';
+import { memo } from "react";
+import { Button as ButtonMui, ButtonProps } from "@mui/material";
+import LoadingCircle from "./LoadingCircle";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { Theme } from "@mui/material/styles";
 
 export type ButtonPropsType = {
   title?: string | JSX.Element;
-  size?: ButtonProps['size'];
-  variant?: ButtonProps['variant'];
-  color?: ButtonProps['color'] | 'red' | 'purple' | 'yellow' | 'orange' | 'green' | 'gray' | 'btn-info' | 'default';
-  type?: ButtonProps["type"];
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement> | any) => any;
-  key?: number;
+  color?: ButtonProps['color'] | 'red' | 'purple' | 'yellow' | 'orange' | 'green' | 'gray' | 'default';
   icon?: JSX.Element | boolean;
-  disabled?: boolean;
   disableElevation?: boolean;
-  pageComponent?: JSX.Element;
-  exact?: boolean;
   fullWidth?: boolean;
   className?: string;
-  style?: CSSProperties;
   isLoading?: boolean;
   accessId?: string;
   iconright?: boolean;
   children?: any;
-  component?: any;
   to?: string;
-  id?: any;
-  theme?: any;
-  sx?: SxProps;
-};
+} & Omit<ButtonProps, "color" | "title">;
 
-const buttonColors = {
-  purple: { background: "#485dc6", hover: "#8095ff" },
-  red: { background: "#e83c3c", hover: "#d01919" },
-  default: { background: "#2185d0", hover: "#0d71bb" },
-  orange: { background: "#f2711c", hover: "#f26202" },
-  green: { background: "#63ac74", hover: "#3d864e" },
-  yellow: { background: "#e8b316", hover: "#daa300" },
-};
-
-export const StyledButton = styled(ButtonMui)(({ colorType = "default" }:{ colorType: ButtonPropsType['color']}) => {
-  const { background, hover } = buttonColors[colorType] || buttonColors.default;
+export const StyledButton = styled(ButtonMui)<{ colorType: ButtonPropsType['color'], theme?: Theme}>(({ theme, colorType = "default" }) => {
+  const { background, hover } = theme.customStyles.buttons.colors[colorType] ||theme.customStyles.buttons.colors.default;
 
   return {
     backgroundColor: background,
@@ -65,7 +44,7 @@ export const StyledButton = styled(ButtonMui)(({ colorType = "default" }:{ color
 
 export const Button: React.FC<ButtonPropsType> = ({ title, color, icon, iconright, onClick, isLoading, children, variant="outlined", to, sx, ...rest }) => {
   const navigate = useNavigate();
-  const handleOnClick = to ? ()=> navigate(to) : onClick;
+  const handleOnClick = to ? () => navigate(to) : onClick;
 
   return (
     <StyledButton
@@ -73,25 +52,24 @@ export const Button: React.FC<ButtonPropsType> = ({ title, color, icon, iconrigh
       colorType={color}
       sx={{
         textTransform: "inherit",
-        ...sx
+        ...sx,
       }}
       {...rest}
       onClick={handleOnClick}
     >
-      {
-        isLoading &&
+      {isLoading && (
         <span className="loginLoadingIcon">
           <LoadingCircle
             color="inherit"
             style={{
-              width: '20px',
-              height: '20px',
-              color: '#fff',
-              marginRight: '18px',
+              width: "20px",
+              height: "20px",
+              color: "#fff",
+              marginRight: "18px",
             }}
           />
         </span>
-      }
+      )}
 
       {icon && !iconright && <span style={{ marginRight: 10 }}>{icon}</span>}
       {title || children}
@@ -100,4 +78,4 @@ export const Button: React.FC<ButtonPropsType> = ({ title, color, icon, iconrigh
   );
 };
 
-export default Button;
+export default memo(Button);

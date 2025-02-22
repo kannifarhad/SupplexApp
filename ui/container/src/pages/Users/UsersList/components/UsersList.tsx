@@ -1,53 +1,21 @@
-import React, { useState, useEffect, memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import {
-  Fab,
   Chip,
-  Tooltip,
   Typography,
   FormLabel,
   Avatar,
   Grid,
 } from "@mui/material";
-import { MUIDataTable } from "src/components/ThirdPart";
 import { DatePicker } from "src/components/Elements";
 import { useAppDispatch } from "src/store";
-import { getUsersList, requestDeleteUserById } from "src/store/users";
+import { requestDeleteUserById } from "src/store/users";
 import { useSelector } from "react-redux";
 import { selectUsersList } from "src/store/users";
 import { useNavigate } from "react-router-dom";
-import { EditUser } from "../routes";
+import { EditUser } from "../../routes";
 import { useActionPopover } from "src/components/Molecules/ActionPopover/useActionPopper";
-
-const options = {
-  filter: true,
-  search: true,
-  print: false,
-  download: false,
-  viewColumns: false,
-  customToolbar: null,
-  selectableRows: "none",
-  filterType: "dropdown",
-  responsive: "standard",
-  className: "usersListTable",
-  elevation: 0,
-  rowsPerPage: 10,
-  searchPlaceholder: "Type any information about user...",
-  textLabels: {
-    body: {
-      noMatch: "Sorry we could not find any records!",
-    },
-    filter: {
-      all: "All users list",
-      title: "OUR FILTERS",
-      reset: "PERFORM RESET",
-    },
-    selectedRows: {
-      text: "rows has been selected",
-      delete: "Delete Row",
-      deleteAria: "Deleted Selected Rows",
-    },
-  },
-};
+import FabButton from "src/components/Elements/FabButton";
+import UsersTable from './UsersTable';
 
 function UsersList() {
   const dispatch = useAppDispatch();
@@ -68,8 +36,6 @@ function UsersList() {
     onConfirm: handleDeleteUser,
     loading,
   });
-
-  const handleClickPopupOpen = (title, id) => {};
 
   const columns = useMemo(()=> ([
     {
@@ -261,58 +227,36 @@ function UsersList() {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <Typography component={"span"} noWrap={true}>
-              <Tooltip title="View User Info" aria-label="edit">
-                <Fab
-                  size="small"
+                <FabButton
+                  title="View User Info"
                   style={{ marginRight: "10px" }}
-                  className={`cubeFab`}
-                  onClick={() => {
-                    // historyClick(EditUser.getPath({id: tableMeta.rowData[0] }))
-                  }}
-                >
-                  <span className={"fad fa-eye blueText"} />
-                </Fab>
-              </Tooltip>
-
-              <Tooltip title="Delete" aria-label="delete">
-                <Fab
-                  size="small"
+                  icon={<span className="fad fa-eye" />}
+                  onClick={() =>  historyClick(EditUser.getPath({id: tableMeta.rowData[0] }))}
+                />
+                  
+                <FabButton
+                  title="Delete"
                   style={{ marginRight: "10px" }}
-                  className={`cubeFab`}
+                  color="red"
                   onClick={(e) => openPopover(e, tableMeta.rowData[0])}
-                >
-                  <span className={"fad fa-trash redText"}> </span>
-                </Fab>
-              </Tooltip>
+                  icon={<span className="fad fa-trash" />}
+                />
 
-              <Tooltip title="Block" aria-label="delete">
-                <Fab
-                  size="small"
+                <FabButton
+                  title="Block"
                   style={{ marginRight: "10px" }}
-                  className={`cubeFab`}
-                  onClick={() =>
-                    handleClickPopupOpen(
-                      "Seçilmiş istifadəçi bloklansın?",
-                      tableMeta.rowData[0]
-                    )
-                  }
-                >
-                  <span className={"fad fa-ban yellowText"}> </span>
-                </Fab>
-              </Tooltip>
+                  color="yellow"
+                  onClick={(e) => openPopover(e, tableMeta.rowData[0])}
+                  icon={<span className="fad fa-ban" />}
+                />      
 
-              <Tooltip title="Edit" aria-label="edit">
-                <Fab
-                  size="small"
+                <FabButton
+                  title="Edit"
                   style={{ marginRight: "10px" }}
-                  className={`cubeFab`}
-                  onClick={() =>
-                    historyClick(EditUser.getPath({ id: tableMeta.rowData[0] }))
-                  }
-                >
-                  <span className={"fad fa-user-pen greenText"}> </span>
-                </Fab>
-              </Tooltip>
+                  color="green"
+                  onClick={(e) => historyClick(EditUser.getPath({ id: tableMeta.rowData[0] }))}
+                  icon={<span className="fad fa-user-pen" />}
+                />  
             </Typography>
           );
         },
@@ -329,24 +273,5 @@ function UsersList() {
     </Grid>
   );
 }
-
-const UsersTable = memo(({ columns }:{columns: any }) => {
-  const dispatch = useAppDispatch();
-  const { loading, usersList } = useSelector(selectUsersList);
-    
-  useEffect(() => {
-    dispatch(getUsersList());
-  }, [dispatch]);
-
-  return (
-    <MUIDataTable
-      loading={loading}
-      title={"All Users List"}
-      data={usersList}
-      columns={columns}
-      options={options}
-    />
-  );
-});
 
 export default memo(UsersList);

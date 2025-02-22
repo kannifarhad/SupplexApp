@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Login from "./Blocks/Login";
+import Login from "./components/Login";
 import { Helmet } from "react-helmet-async";
 import { useTranslation, Trans } from "react-i18next";
 
