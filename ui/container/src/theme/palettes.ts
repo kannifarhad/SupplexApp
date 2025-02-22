@@ -64,7 +64,7 @@ export const defaultPallete = {
   },
   text:{
     active: colorCollection.blue.main,
-    headings: colorCollection.lightGrey.main,
+    headings: colorCollection.darkGrey.main,
     main: colorCollection.darkGrey.dark,
   }
 };
@@ -80,14 +80,14 @@ export const darkPalette: ThemeCollectionType = {
     borderColor: colorCollection.darkGrey.dark,
   },
   sideBar:{
-    background: colorCollection.black.light,
+    background: "#364553", //colorCollection.black.light,
     borderColor: colorCollection.darkGrey.dark,
     activeBackground:  colorCollection.black.main,
-    boxShadow: '0 0 28px 0 rgba(82, 63, 105, 0.2)',
+    boxShadow: '0 0 28px 0 rgb(32 43 52)',
   },
   text:{
     active: colorCollection.blue.main,
-    headings: colorCollection.darkGrey.main,
-    main: colorCollection.darkGrey.dark,
+    headings: colorCollection.lightGrey.main,
+    main: colorCollection.lightGrey.dark,
   }
 };

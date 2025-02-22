@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Outlet } from "react-router-dom";
 import apolloClient from "./services/clients/apolloClient";
 import { siteMap, } from "./routes";
 import { SiteRoute } from "./routes/types";
-import DashboardWrapp from './pages/Dashboard/DashboardWrapp';
+import DashboardWrapp from './pages/Dashboard/components/Layout/DashboardWrapp';
 import Login from './pages/Dashboard/AuthPage';
 import { ProtectedRoute, PublicRoute } from './routes/RouteTypes';
 import DynamicImport from './components/Molecules/DynamicImport';

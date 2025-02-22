@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation, Trans } from "react-i18next";
-import image404 from './components/Assets/images/403.svg';
+import image404 from './components/assets/images/403.svg';
 import { Button } from '../../components/Elements';
 import { Box } from '@mui/material';
 
@@ -12,7 +12,7 @@ export default function AccessDenied() {
   return (
     <>
      <Helmet>
-        <title>{`${t('Access Denied')} | Supplex Dashboard`}</title>
+        <title>{`${t('Access Denied')} | Cronus Dashboard`}</title>
       </Helmet>
 
 

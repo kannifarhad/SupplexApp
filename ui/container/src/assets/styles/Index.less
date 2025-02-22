@@ -276,7 +276,7 @@ a:hover{
     background-repeat: no-repeat;
     background-size: contain;
   }
-  .supplexInfoWrap {
+  .cronusInfoWrap {
     width: 90%;
     .iconBlock {
       width: 100px;
@@ -289,7 +289,7 @@ a:hover{
     }
   }
 }
-.supplexInfo {
+.cronusInfo {
   padding: 30px 10px;
   h3 {
     text-align: center;
@@ -297,24 +297,6 @@ a:hover{
   p {
     text-align: center;
     color: @lightTextColor;
-  }
-}
-.supplexInfoFooter,
-.dashboardFooter {
-  position: absolute;
-  bottom: 30px;
-  font-size: 12px;
-  a {
-    display: inline-block;
-    color: @lightTextColor;
-    padding: 5px 10px 5px 0px;
-    font-size: 12px;
-  }
-  div {
-    display: inline-block;
-  }
-  div.copyright {
-    margin-right: 50px;
   }
 }
 .loginPanel {
@@ -344,16 +326,6 @@ a:hover{
 
 /* DASHBOARD COMMON START */
 
-.dashboardWrapp {
-  min-height: 100%;
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
-  overflow: hidden;
-  > div.dashboardContainer {
-    min-width: 0;
-  }
-}
 .dashboardMessages {
   position: fixed;
   z-index: 99999;
@@ -473,12 +445,6 @@ a:hover{
   border-top: 1px solid @lightTextColor;
   padding: 15px 20px !important;
   justify-content: center !important;
-}
-.dashboardContainer {
-  background: #f0f3f9;
-  width: 100%;
-  position: relative;
-  padding: 60px 0px 50px 0px;
 }
 
 .headerUser {
@@ -1586,30 +1552,8 @@ table.taskList {
   }
 }
 
-.dashboardFooter {
-  background: @backgroundColor;
-  width: 100%;
-  bottom: 0px;
-  padding: 10px 20px;
-  color: @lightTextColor;
-}
-.dashboardContentWrapper {
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
 
-.dashboardContent {
-  // padding: 20px;
-  height: 100%;
-  overflow: auto;
-  width: 100%;
-  padding: 0px;
-  margin: 0px;
-  flex-shrink: 1;
-  flex-grow: 1;
-}
+
 
 .dialogIconWrap {
   width: 100%;
@@ -2129,11 +2073,11 @@ table.taskList {
       height: 768px;
       bottom: 0px;
     }
-    .supplexInfoWrap {
+    .cronusInfoWrap {
       width: 100%;
     }
   }
-  .supplexInfoFooter {
+  .cronusInfoFooter {
     color: @headlineColor;
     bottom: 0px;
     width: 100%;

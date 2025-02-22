@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import ContentWrapper from "../../Dashboard/ContentWrapper";
+import ContentWrapper from "../../Dashboard/components/Layout/ContentWrapper";
 import { memo } from "react";
 import UsersListBlock from "./components/UsersList";
 

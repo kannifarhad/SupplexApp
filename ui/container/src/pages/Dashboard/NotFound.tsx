@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import ContentWrapper from "./ContentWrapper";
+import ContentWrapper from "./components/Layout/ContentWrapper";
 const NotFound: React.FC = () => {
   return (
     <ContentWrapper

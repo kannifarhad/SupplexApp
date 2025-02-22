@@ -1,7 +1,7 @@
 export const IS_DEV = process.env.NODE_ENV == "development";
-export const SUPPLEX_API_URL = process.env.SUPPLEX_API_URL || "http://localhost:4000";
-export const SUPPLEX_DOCS_URL =process.env.REACT_DOCS_URL || "http://localhost:3001";
-export const LOCATION_SKIP_LIST = ["/logout", "/login", "/", "/supplex-auth/callback/oauth", undefined];
+export const CRONUS_API_URL = process.env.CRONUS_API_URL || "http://localhost:4000";
+export const CRONUS_DOCS_URL =process.env.REACT_DOCS_URL || "http://localhost:3001";
+export const LOCATION_SKIP_LIST = ["/logout", "/login", "/", "/cronus-auth/callback/oauth", undefined];
 export const LAST_LOCATION_KEY = 'LAST_LOCATION';
 export const LAST_LOCATION_WAS_LOGGEDIN_KEY = 'LAST_LOCATION_WAS_LOGGEDIN_KEY';
 

@@ -82,7 +82,6 @@ export const StyledSideMenuCont = styled.div<{
           position: "absolute",
           top: "-1px",
           left: "70px",
-          background: "#fff",
           width: "250px",
           paddingLeft: "0px",
           li : {
@@ -135,6 +134,7 @@ export const StyledSideMenuCont = styled.div<{
       'ul.asideSubmenu': {
         display: 'none',
         paddingLeft: '20px',
+        background: theme.customStyles.sideBar.background,
 
         'li a': {
           padding: '12px 10px',
@@ -143,7 +143,7 @@ export const StyledSideMenuCont = styled.div<{
 
       '&:hover, .active, &.active': {
         textDecoration: 'none !important',
-        background: theme?.customStyles.sideBar.activeBackground,
+        // background: theme?.customStyles.sideBar.activeBackground,
         color: theme?.customStyles.text.active,
 
         '> .MuiListItem-root > a': {

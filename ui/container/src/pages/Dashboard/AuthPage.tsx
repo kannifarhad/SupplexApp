@@ -10,7 +10,7 @@ const AuthPage: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>{`${t("Login Panel")} | Supplex Dashboard`}</title>
+        <title>{`${t("Login Panel")} | Cronus Dashboard`}</title>
       </Helmet>
 
       <div className="wrapper loginWrap">
@@ -23,7 +23,7 @@ const AuthPage: React.FC = () => {
             style={{ backgroundImage: `url('/static/img/loginBubbles2.svg')` }}
           ></div>
 
-          <div className="supplexInfoWrap">
+          <div className="cronusInfoWrap">
             <div className="iconBlock">
               <Link to="/">
                 <object
@@ -35,9 +35,9 @@ const AuthPage: React.FC = () => {
               </Link>
             </div>
 
-            <div className="supplexInfo">
+            <div className="cronusInfo">
               <h3>
-                <Trans>Welcome to Supplex!</Trans>
+                <Trans>Welcome to Cronus!</Trans>
               </h3>
               <p>
                 <Trans>
@@ -51,8 +51,8 @@ const AuthPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="supplexInfoFooter">
-              <div className="copyright"> &copy; 2020 Supplex </div>
+            <div className="cronusInfoFooter">
+              <div className="copyright"> &copy; 2020 Cronus </div>
               <div>
                 <Link to="/terms">
                   <Trans>Privacy</Trans>

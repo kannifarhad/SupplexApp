@@ -13,8 +13,8 @@ function AsideLeft() {
       <div className={`asideMenuContainer`}>
         <StyledSideBarHead sidebarCollapsed={sidebarCollapsed}>
           <Link to="/">
-            <img alt="Supplex" className="bigLogo" src={toAbsoluteUrl('/static/img/logos/lightLogo.svg')} />
-            <img alt="Supplex" className="smallLogo" src={toAbsoluteUrl('/static/img/logos/lineIcon.svg')} />
+            <img alt="Cronus" className="bigLogo" src={toAbsoluteUrl('/static/img/logos/lightLogo.svg')} />
+            <img alt="Cronus" className="smallLogo" src={toAbsoluteUrl('/static/img/logos/lineIcon.svg')} />
           </Link>
         </StyledSideBarHead>
         <div className="asideMenuListWrapper">

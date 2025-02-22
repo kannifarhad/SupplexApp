@@ -1,6 +1,6 @@
 import React from "react";
 // import CalendarWidget from '../../components/Widgets/CalendarWidget';
-import ContentWrapper from "./ContentWrapper";
+import ContentWrapper from "./components/Layout/ContentWrapper";
 import { DashBoardInfoBlock } from "../../components/Molecules";
 import { Grid } from "@mui/material";
 import { Helmet } from "react-helmet-async";
@@ -12,7 +12,7 @@ export default function Dashboard({ title, description }) {
   return (
     <ContentWrapper title={title} description={description}>
       <Helmet>
-        <title>{`${t("Main Panel")} | Supplex Dashboard`}</title>
+        <title>{`${t("Main Panel")} | Cronus Dashboard`}</title>
       </Helmet>
 
       <Grid container>

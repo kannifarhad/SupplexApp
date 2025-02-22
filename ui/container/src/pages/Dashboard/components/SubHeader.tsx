@@ -14,7 +14,7 @@ const SubHeader = ({
 }) => {
   const titleParsed = <Trans>{title ?? "Dashboard"}</Trans>;
   const descriptionParsed = (
-    <Trans>{description ?? "Wellcome to Supplex dashboard"}</Trans>
+    <Trans>{description ?? "Wellcome to Cronus dashboard"}</Trans>
   );
   return (
     <StyledDashboardSubHeader>

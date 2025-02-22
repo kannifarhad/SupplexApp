@@ -4,7 +4,7 @@ import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
 import { sentenceCase } from "sentence-case";
 import {
-  SUPPLEX_API_URL,
+  CRONUS_API_URL,
   LAST_LOCATION_KEY,
   LOCATION_SKIP_LIST,
 } from "../../../constants";
@@ -18,10 +18,10 @@ import { setError } from "../../../store/error";
 // import React from "react";
 
 // TODO: Adapt subscriptions to Apollo Federation
-const supplexUrl = `${SUPPLEX_API_URL}/graphql`;
+const cronusUrl = `${CRONUS_API_URL}/graphql`;
 
 export const httpLink = createUploadLink({
-  uri: supplexUrl,
+  uri: cronusUrl,
   credentials: "include",
   headers: {
     "keep-alive": "true",
@@ -29,7 +29,7 @@ export const httpLink = createUploadLink({
 }) as unknown as ApolloLink;
 
 export const wsLink = new WebSocketLink({
-  uri: supplexUrl.replace("http", "ws"),
+  uri: cronusUrl.replace("http", "ws"),
   options: {
     lazy: true,
     reconnect: true,

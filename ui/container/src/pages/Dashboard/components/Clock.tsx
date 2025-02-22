@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useInterval } from "src/hooks/useInterval";
-import "./Assets/Clock.css";
+import "./assets/Clock.css";
 
 interface ClockProps {
   date: Date;
