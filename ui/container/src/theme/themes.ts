@@ -63,8 +63,24 @@ export const darkTheme: Theme = createTheme(deepmerge({
         }
       }
     },
+    MuiInput:{
+      styleOverrides:{
+        input:{
+          outline: "1px"
+        }
+      }
+    },
     MuiCssBaseline:{
       styleOverrides:{
+        "input:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0 100px #295b2d3b inset !important",
+          },
+          "input:-webkit-autofill:hover": {
+            WebkitBoxShadow: " 0 0 0 100px #295b2d3b inset !important",
+          },
+          "input:-webkit-autofill:focus": {
+            WebkitBoxShadow: " 0 0 0 100px #295b2d3b inset !important",
+          },
         ':root':{
           colorScheme: "dark"
         },

@@ -12,7 +12,7 @@ export type ButtonPropsType = {
   disableElevation?: boolean;
   fullWidth?: boolean;
   className?: string;
-  isLoading?: boolean;
+  loading?: boolean;
   accessId?: string;
   iconright?: boolean;
   children?: any;
@@ -26,6 +26,16 @@ export const StyledButton = styled(ButtonMui)<{ colorType: ButtonPropsType['colo
     backgroundColor: background,
     color: "#fff",
     borderColor: background,
+    padding: "7px 20px",
+    ".buttonBase": {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      ".icon": {
+        fontSize: "18px",
+        lineHeight: "18px",
+      },
+    },
     "&:hover, &.active": {
       backgroundColor: hover,
       borderColor: background,
@@ -42,7 +52,20 @@ export const StyledButton = styled(ButtonMui)<{ colorType: ButtonPropsType['colo
   };
 });
 
-export const Button: React.FC<ButtonPropsType> = ({ title, color, icon, iconright, onClick, isLoading, children, variant="outlined", to, sx, ...rest }) => {
+export const Button: React.FC<ButtonPropsType> = ({
+  title,
+  color,
+  icon,
+  iconright,
+  onClick,
+  loading,
+  children,
+  variant = "outlined",
+  to,
+  sx,
+  disabled,
+  ...rest
+}) => {
   const navigate = useNavigate();
   const handleOnClick = to ? () => navigate(to) : onClick;
 
@@ -56,24 +79,27 @@ export const Button: React.FC<ButtonPropsType> = ({ title, color, icon, iconrigh
       }}
       {...rest}
       onClick={handleOnClick}
+      disabled={loading || disabled}
     >
-      {isLoading && (
-        <span className="loginLoadingIcon">
-          <LoadingCircle
-            color="inherit"
-            style={{
-              width: "20px",
-              height: "20px",
-              color: "#fff",
-              marginRight: "18px",
-            }}
-          />
-        </span>
-      )}
-
-      {icon && !iconright && <span style={{ marginRight: 10 }}>{icon}</span>}
-      {title || children}
-      {icon && iconright && <span style={{ marginLeft: 10 }}>{icon}</span>}
+      <div className="buttonBase">
+        {loading ? (
+          <span className="loginLoadingIcon">
+            <LoadingCircle
+              color="#fff"
+              style={{
+                width: "18px",
+                height: "18px",
+                color: "#fff",
+                marginRight: "10px",
+              }}
+            />
+          </span>
+        ) : (
+          icon && !iconright && <span className="icon">{icon}</span>
+        )}
+        {title || children}
+        {icon && iconright && <span className="icon">{icon}</span>}
+      </div>
     </StyledButton>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, forwardRef } from "react";
 
 import {
@@ -135,11 +136,11 @@ export const SelectWithSearch: React.FC<SelectWithSearchProps> = forwardRef(
       },
     };
 
-    const [innerValue, setInnerValue] = useState<string | null | UISelectItem>(null || []);
+    const [innerValue, setInnerValue] = useState<string | null | UISelectItem>([]);
 
     useEffect(() => {
       setInnerValue(operations.initValues(value));
-    }, [value]);
+    }, [value, operations]);
 
 
     return (

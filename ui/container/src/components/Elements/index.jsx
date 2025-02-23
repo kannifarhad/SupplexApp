@@ -26,4 +26,5 @@ export * from "./ResultBox";
 export * from "./SearchInput";
 export * from "./Switch";
 export * from "./SelectWithSearch";
+export * from "./BlockBox";
 export { default as DropZone } from "./UploadDropZone";

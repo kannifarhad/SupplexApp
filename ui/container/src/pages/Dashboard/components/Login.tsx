@@ -172,7 +172,7 @@ function Login() {
               <Button
                 fullWidth
                 variant="contained"
-                isLoading={loading}
+                loading={loading}
                 disabled={loading || !isValid}
                 onClick={handleSubmit((values) => {
                   handleLogin(values);

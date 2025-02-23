@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { InputAdornment, IconButton, Grid, Paper } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AllUsers } from "../routes";
+import { addUserSchema, AddUserType } from "../fromSchemas";
+import AvatarEdit from "../components/AvatarEdit";
 import {
   DatePicker,
   InputField,
@@ -11,55 +13,9 @@ import {
   SelectWithSearch,
   SimpleSelect,
   ButtonGroup,
+  BlockBox,
 } from "src/components/Elements";
-import { AllUsers } from "../routes";
-// import FileManagerPopup from "../../Components/Elements/FileManagerPopup";
-// import Translate from "../../Utils/Translate";
 
-interface UserFormInputs {
-  name: string;
-  login: string;
-  mail: string;
-  status: string;
-  password: string;
-  passwordRepeat: string;
-  image?: string;
-  phone?: string;
-  address?: string;
-  profession?: string;
-  createdAt: Date;
-  groupId: number;
-}
-
-const validationSchema = yup.object().shape({
-  name: yup
-    .string()
-    .min(4, "Login must contain at least 4 characters")
-    .required("Name is required"),
-  login: yup
-    .string()
-    .min(4, "Login must contain at least 4 characters")
-    .required("Login is required"),
-  mail: yup.string().email("Enter a valid email").required("Email is required"),
-  status: yup
-    .string()
-    .min(1, "Status must contain at least 1 character")
-    .required("Status is required"),
-  password: yup
-    .string()
-    .min(6, "Password must contain at least 6 characters")
-    .required("Enter your password"),
-  passwordRepeat: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords do not match")
-    .required("Confirm your password"),
-  image: yup.string().url("Image Path is not valid").optional(),
-  phone: yup.string().optional(),
-  address: yup.string().optional(),
-  profession: yup.string().optional(),
-  createdAt: yup.date().default(() => new Date()),
-  groupId: yup.number().required("Group is required"),
-});
 
 const UserAddForm: React.FC<{
   addUser: Function;
@@ -73,16 +29,15 @@ const UserAddForm: React.FC<{
     watch,
     setValue,
     formState: { errors },
-  } = useForm<UserFormInputs>({
-    resolver: yupResolver(validationSchema),
+  } = useForm<AddUserType>({
+    resolver: yupResolver(addUserSchema),
     defaultValues: {
-      name: "",
-      login: "",
       mail: "",
       status: "",
       password: "",
+      about: "",
       passwordRepeat: "",
-      image: "",
+      image: "https://pics.craiyon.com/2024-04-14/qV9PTsjxQpaOdO-4uA-0vg.webp",
       phone: "",
       address: "",
       profession: "",
@@ -91,11 +46,7 @@ const UserAddForm: React.FC<{
     },
   });
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [openFileManager, setOpenFileManager] = useState(false);
-
-  const onSubmit = (data: UserFormInputs) => {
+  const onSubmit = (data: AddUserType) => {
     addUser(data)
       .then(() => {
         navigate("/user/list");
@@ -121,117 +72,247 @@ const UserAddForm: React.FC<{
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Grid>
+      <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Paper>
-            <div className="blockHead">
-              <h3>User Information</h3>
-              <span>The required fields must be filled.</span>
-            </div>
-            <div className="blockBody">
-              <Grid container spacing={2} style={{ padding: "20px" }}>
-                <Grid item xs={12}>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field }) => (
-                      <InputField
-                        {...field}
-                        label="Name of user"
-                        error={!!errors.name}
-                        helperText={errors.name?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Controller
-                    name="login"
-                    control={control}
-                    render={({ field }) => (
-                      <InputField
-                        {...field}
-                        label="Login name"
-                        error={!!errors.login}
-                        helperText={errors.login?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={6}>
-                  <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => (
-                      <PasswordField
-                        {...field}
-                        label="New Password"
-                        type={showPassword ? "text" : "password"}
-                        error={!!errors.password}
-                        helperText={errors.password?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={6}>
-                  <Controller
-                    name="passwordRepeat"
-                    control={control}
-                    render={({ field }) => (
-                      <PasswordField
-                        {...field}
-                        label="Repeat New Password"
-                        type={showRepeatPassword ? "text" : "password"}
-                        error={!!errors.passwordRepeat}
-                        helperText={errors.passwordRepeat?.message}
-                      />
-                    )}
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Controller
-                    name="groupId"
-                    control={control}
-                    render={({ field }) => (
-                      <SimpleSelect
-                        {...field}
-                        items={userGroupsList}
-                        label="User Group"
-                      />
-                    )}
-                  />
-                </Grid>
+          <BlockBox
+            title="Main Information"
+            subtitle="The required fields must be filled."
+            icon={<span className="fad fa-id-badge" />}
+          >
+            <Grid container spacing={2} style={{ padding: "20px" }}>
+              <Grid item xs={6}>
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      label="Full name"
+                      error={!!errors.name}
+                      helperText={errors.name?.message}
+                    />
+                  )}
+                />
               </Grid>
 
-            </div>
-          </Paper>
+              <Grid item xs={6}>
+                <Controller
+                  name="login"
+                  control={control}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      label="E-mail"
+                      error={!!errors.login}
+                      helperText={
+                        errors.login?.message ||
+                        "This would be used as login as well"
+                      }
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={4}>
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      label="Phone"
+                      error={!!errors.phone}
+                      helperText={errors.phone?.message}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={8}>
+                <Controller
+                  name="address"
+                  control={control}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      label="Address"
+                      error={!!errors.address}
+                      helperText={errors.address?.message}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item>
+                <Controller
+                  name="image"
+                  control={control}
+                  render={({ field }) => (
+                    <AvatarEdit 
+                      src={field.value}
+                      size={105}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item flexGrow={1}>
+                <Controller
+                  name="about"
+                  control={control}
+                  render={({ field }) => (
+                    <InputField
+                      {...field}
+                      label="About"
+                      rows={4}
+                      multiline
+                      error={!!errors.about}
+                      helperText={errors.about?.message}
+                    />
+                  )}
+                />
+              </Grid>
+            </Grid>
+          </BlockBox>
         </Grid>
+
+        <Grid item xs={6}>
+          <BlockBox
+            title="Access & Roles"
+            subtitle="The required fields must be filled."
+            icon={<span className="fad fa-key" />}
+          >
+            <Grid container spacing={2} style={{ padding: "20px" }}>
+              <Grid item xs={4}>
+                <Controller
+                  name="status"
+                  control={control}
+                  render={({ field }) => (
+                    <SimpleSelect
+                      {...field}
+                      items={[
+                        {
+                          value: "1",
+                          title: "Active",
+                        },
+                        {
+                          value: "0",
+                          title: "Deactive",
+                        },
+                      ]}
+                      label="Status"
+                      helperText={errors.status?.message}
+                      error={!!errors.status}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <Controller
+                  name="role"
+                  control={control}
+                  render={({ field }) => (
+                    <SimpleSelect
+                      {...field}
+                      items={[
+                        {
+                          value: "ADMIN",
+                          title: "Admin",
+                        },
+                        {
+                          value: "CONSUMER",
+                          title: "Consumer",
+                        },
+                      ]}
+                      label="Role"
+                      helperText={
+                        errors.role?.message ||
+                        "Depending on role additional data may be required"
+                      }
+                      error={!!errors.role}
+                    />
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Controller
+                  name="groupId"
+                  control={control}
+                  render={({ field }) => (
+                    <SimpleSelect
+                      {...field}
+                      items={userGroupsList}
+                      label="User Group"
+                      helperText={
+                        errors.groupId?.message ||
+                        "This would help define access to the system modules"
+                      }
+                      error={!!errors.groupId}
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <Controller
+                  name="password"
+                  control={control}
+                  render={({ field }) => (
+                    <PasswordField
+                      {...field}
+                      label="Password"
+                      error={!!errors.password}
+                      helperText={
+                        errors.password?.message ||
+                        "Should be at least 8 symbols"
+                      }
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={6}>
+                <Controller
+                  name="passwordRepeat"
+                  control={control}
+                  render={({ field }) => (
+                    <PasswordField
+                      {...field}
+                      label="Repeat Password"
+                      error={!!errors.passwordRepeat}
+                      helperText={errors.passwordRepeat?.message}
+                    />
+                  )}
+                />
+              </Grid>
+            </Grid>
+          </BlockBox>
+        </Grid>
+
         <Grid item xs={12}>
-          <Paper style={{padding:'10px', marginTop:"20px"}} elevation={0}>
-          <ButtonGroup
-            buttonList={[
-              {
-                type: "submit",
-                variant: "contained",
-                title: "Save and Quit",
-                color: "green",
-                icon:<span className="fad fa-save" />,
-                onClick: handleSubmit(onSubmit),
-              },
-              {
-                type: "reset",
-                title: "Cancel",
-                variant: "contained",
-                color: "yellow",
-                icon:<span className="fad fa-cancel" />,
-                onClick: ()=> navigate(AllUsers.getPath({})),
-              },
-            ]}
-          />
+          <Paper style={{ padding: "10px" }} elevation={0}>
+            <ButtonGroup
+              buttonList={[
+                {
+                  type: "submit",
+                  variant: "contained",
+                  title: "Save and Quit",
+                  loading: false,
+                  color: "green",
+                  icon: <span className="fa fa-save" />,
+                  onClick: handleSubmit(onSubmit),
+                },
+                {
+                  type: "reset",
+                  title: "Cancel",
+                  variant: "contained",
+                  color: "yellow",
+                  icon: <span className="fa fa-cancel" />,
+                  onClick: () => navigate(AllUsers.getPath({})),
+                },
+              ]}
+            />
           </Paper>
         </Grid>
       </Grid>
