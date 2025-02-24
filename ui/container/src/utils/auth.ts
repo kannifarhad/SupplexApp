@@ -1,20 +1,21 @@
 import jwtDecode from "jwt-decode";
-import * as storage from "store";
 import { refreshingClient } from "../services/clients/apolloClient";
 import { REFRESH_TOKEN } from "../services/graphql";
 import { RefreshTokenMutation } from "../types";
 
+const TOKEN_KEY = "JWT_TOKEN";
+
 export const getToken = (): string => {
-  return storage.get("jwt");
+  return localStorage.getItem(TOKEN_KEY) || "";
 };
 
 export const setToken = (token: string) => {
-  storage.set("jwt", token);
+  localStorage.setItem(TOKEN_KEY, token);
 };
 
 export const resetToken = () => {
   console.log("Resetting token...");
-  return storage.remove("jwt");
+  return localStorage.removeItem(TOKEN_KEY);
 };
 
 export const refreshToken = async () => {

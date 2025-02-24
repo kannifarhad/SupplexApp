@@ -1,4 +1,4 @@
-import { SchemaOf, object, string } from "yup";
+import { Schema, object, string } from "yup";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { Trans, useTranslation } from "react-i18next";
@@ -51,7 +51,7 @@ const defaultValues: LoginInput = {
   password: "",
 };
 
-const loginSchema: SchemaOf<LoginInput> = object().shape({
+const loginSchema: Schema<LoginInput> = object().shape({
   email: string()
     .min(4, i18n.t("Login must contain atleast 4 characters").toString())
     .required(i18n.t("Name is required").toString()),
@@ -160,10 +160,8 @@ function Login() {
               <SimpleSelect
                 items={LangList}
                 onChange={(value: string) => changeLanguage(value)}
-                // helperText={errors.language ? errors.language : ""}
                 valueKey="slug"
                 label={<Trans>Select Language</Trans>}
-                variant="outlined"
                 value={i18n.language}
               />
             </Box>

@@ -10,7 +10,7 @@ import client from "../services/clients/apolloClient";
 import { persistor, RootState } from "./index";
 import { setToken, resetToken } from "../utils";
 import { LAST_LOCATION_KEY } from "../constants";
-import { LOGIN, LOGOUT, } from "../services/graphql";
+import { LOGIN, LOGOUT } from "../services/graphql";
 import { UserRole, LoginMutation, LoginMutationVariables, UserFieldsFragment } from "../types";
 // import { UserFields } from "../types";
 
@@ -28,9 +28,9 @@ export const loginWithCredentials = createAsyncThunk(
   "auth/loginWithCredentials",
   async (variables: LoginMutationVariables) => {
     const { data } = await client.mutate<LoginMutation>({
-      mutation: LOGIN,
-      variables,
-    });
+        mutation: LOGIN,
+        variables,
+      });
     return data!.login;
   }
 );
@@ -70,14 +70,14 @@ export const authSlice = createSlice({
 //  * @param keepAlerts optional boolean param. If you send it true resetting of store will wipe all data besides system Alerts. Otherwise all store data will be removed..
 //  * @returns void
 //  */
-export const logout = ( keepAlerts?: boolean, keepLastLocation?: boolean ) => async (dispatch: Dispatch) => {
-  await client.mutate({ mutation: LOGOUT, }).catch(console.error);
-  await persistor.purge();
-  dispatch({ type: "RESET_ALL", keepAlerts });
-  resetToken()
-  if(!keepLastLocation) window.localStorage.removeItem(LAST_LOCATION_KEY);
-};
-
+export const logout = (keepAlerts?: boolean, keepLastLocation?: boolean) =>
+  async (dispatch: Dispatch) => {
+    await client.mutate({ mutation: LOGOUT }).catch(console.error);
+    await persistor.purge();
+    dispatch({ type: "RESET_ALL", keepAlerts });
+    resetToken();
+    if (!keepLastLocation) localStorage.removeItem(LAST_LOCATION_KEY);
+  };
 
 export const {} = authSlice.actions;
 export default authSlice.reducer;
