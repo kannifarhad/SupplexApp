@@ -8,7 +8,10 @@ export type FabButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 } & Omit<FabProps, "color">;
 
-const StyledFabButton = styled(Fab)<{ colorType?: string; theme?: Theme }>(
+
+const StyledFabButton = styled(Fab, {
+  shouldForwardProp: (prop) => prop !== "colorType",
+})<{ colorType?: string; theme?: Theme }>(
   ({ colorType = "default", theme }) => {
     const { background, hover } = theme.customStyles.buttons.colors[colorType] || theme.customStyles.buttons.colors.default;
     return {

@@ -1,4 +1,4 @@
-// import "./sentry";
+import React, { StrictMode } from "react"; // Explicitly importing StrictMode
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { Provider } from "react-redux";
@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider>
         <PersistGate loading={null} persistor={persistor}>
@@ -24,5 +24,5 @@ root.render(
         </PersistGate>
       </ThemeProvider>
     </Provider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );

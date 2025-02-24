@@ -8,7 +8,9 @@ export type UIIconButtonProps = {
 } & IconButtonProps;
 
 // Styled IconButton with dynamic colors
-const StyledIconButton = styled(IconButton)<{ colorType?: string, theme?: Theme }>(({ colorType = "default", theme }) => {
+const StyledIconButton = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "colorType",
+})<{ colorType?: string, theme?: Theme }>(({ colorType = "default", theme }) => {
   const { background, hover } = theme.customStyles.buttons.colors[colorType] ||theme.customStyles.buttons.colors.default;
 
   return {

@@ -4,21 +4,20 @@ import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from "apollo-upload-client";
 import { sentenceCase } from "sentence-case";
 import {
-  CRONUS_API_URL,
+  VITE_API_URL,
   LAST_LOCATION_KEY,
   LOCATION_SKIP_LIST,
 } from "../../../constants";
 import store from "../../../store";
 import { logout } from "../../../store/auth";
-import { getAuthentication, setTransactionId } from "./auth";
+import { getAuthentication } from "./auth";
 import { WebSocketLink } from "@apollo/client/link/ws";
 
 import { setError } from "../../../store/error";
-// import * as Sentry from "@sentry/react";
 // import React from "react";
 
 // TODO: Adapt subscriptions to Apollo Federation
-const cronusUrl = `${CRONUS_API_URL}/graphql`;
+const cronusUrl = `${VITE_API_URL}/graphql`;
 
 export const httpLink = createUploadLink({
   uri: cronusUrl,
@@ -48,7 +47,6 @@ export const authLink = setContext(async (_, { headers }) => {
       ...headers,
       "keep-alive": true,
       authorization: await getAuthentication(),
-      "X-Transaction-ID": setTransactionId(),
     },
   };
 });
@@ -110,16 +108,6 @@ export const errorLink = onError(
 
           default:
             const code = err.extensions?.code;
-            // const eventId = Sentry.captureException(new Error(err.message), {
-            //   tags: {
-            //     code,
-            //     serviceName: err.extensions.serviceName,
-            //   },
-            //   extra: {
-            //     ...err.extensions.exception,
-            //     ...err.extensions.response,
-            //   },
-            // });
             // notification.error({
             //   message: sentenceCase(code),
             //   style: { width: 500 },
@@ -136,14 +124,6 @@ export const errorLink = onError(
       }
     } else if (networkError) {
       console.log("Network Error", networkError.message);
-      // Sentry.captureException(new Error(networkError.message), {
-      //   tags: {
-      //     operationName: operation.operationName,
-      //   },
-      //   extra: {
-      //     ...operation,
-      //   },
-      // });
       // notification.error({
       //   message: "Network Error",
       //   description: networkError.message,

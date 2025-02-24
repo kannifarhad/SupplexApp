@@ -214,7 +214,7 @@ export const ResultBox = ({ title, description, type, footer, ...rest }: ResultB
                 {title}
             </Typography>
 
-            {(typeof description === "string" || typeof description === "JSX.Element" as string) ?
+            {(typeof description === "string") ?
                 <Typography variant="subtitle1" align="center" sx={{ fontWeight: 400 }}>
                     {description}
                 </Typography>

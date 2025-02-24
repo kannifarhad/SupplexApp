@@ -19,8 +19,11 @@ export type ButtonPropsType = {
   to?: string;
 } & Omit<ButtonProps, "color" | "title">;
 
-export const StyledButton = styled(ButtonMui)<{ colorType: ButtonPropsType['color'], theme?: Theme}>(({ theme, colorType = "default" }) => {
-  const { background, hover } = theme.customStyles.buttons.colors[colorType] || theme.customStyles.buttons.colors.default;
+export const StyledButton = styled(ButtonMui, {
+  shouldForwardProp: (prop) => prop !== "colorType",
+})<{ colorType: ButtonPropsType["color"]; theme?: Theme }>(
+  ({ theme, colorType = "default" }) => {
+     const { background, hover } = theme.customStyles.buttons.colors[colorType] || theme.customStyles.buttons.colors.default;
 
   return {
     backgroundColor: background,
