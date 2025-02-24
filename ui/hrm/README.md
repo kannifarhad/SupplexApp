@@ -1,1 +1,0 @@
-# Supplex.io Front-end - Microfrontend
