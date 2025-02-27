@@ -2,6 +2,7 @@ import React, { forwardRef, } from 'react';
 import { TextField, TextFieldProps, InputLabel, FormControl, OutlinedInput, FormHelperText, OutlinedInputProps } from '@mui/material'
 import { IMaskInput } from 'react-imask';
 import _ from 'lodash';
+
 type UIInputField = {
   maskProps?: any;
   customInputProps?: any;
@@ -84,7 +85,7 @@ function MaskedInput(props:UIInputField) {
         <FormControl variant="outlined" color={error ? 'error': 'primary'} fullWidth>
             <InputLabel 
               htmlFor="formatted-text-mask-input" 
-              style={{background:'#fff'}}
+              // style={{background:'#fff'}}
               shrink={Boolean(value) || !Boolean(maskProps.lazy)}
             > 
             { error ? <span style={{ color: '#d32f2f' }}>{label}</span> : label }
@@ -98,7 +99,7 @@ function MaskedInput(props:UIInputField) {
                 {...rest as OutlinedInputProps}
                 onChange={handleChange}
                 id="formatted-text-mask-input"
-                inputComponent={TextMaskCustom as any}
+                inputComponent={TextMaskCustom}
                 inputProps={{
                     maskProps
                 }}

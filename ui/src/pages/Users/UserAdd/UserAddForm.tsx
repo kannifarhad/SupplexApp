@@ -14,6 +14,7 @@ import {
   SimpleSelect,
   ButtonGroup,
   BlockBox,
+  PhoneField
 } from "src/components/Elements";
 
 
@@ -113,22 +114,24 @@ const UserAddForm: React.FC<{
                 />
               </Grid>
 
-              <Grid item xs={4}>
+              <Grid item xs={6}>
                 <Controller
                   name="phone"
                   control={control}
                   render={({ field }) => (
-                    <InputField
+                    <PhoneField
                       {...field}
                       label="Phone"
                       error={!!errors.phone}
                       helperText={errors.phone?.message}
+                      defaultCountry="US"
+                      onChange={(phone)=> field.onChange(phone ? `${phone.country.code}${phone.phoneNumber}`: null)}
                     />
                   )}
                 />
               </Grid>
 
-              <Grid item xs={8}>
+              <Grid item xs={6}>
                 <Controller
                   name="address"
                   control={control}
