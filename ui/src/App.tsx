@@ -56,7 +56,7 @@ const renderRoutes = ({ routes, parentRoute }: RenderRoutesProps) => {
 const App = () => {
   return (
     <ApolloProvider client={apolloClient}>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           <Route
             path="login"

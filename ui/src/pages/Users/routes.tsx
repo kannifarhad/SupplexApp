@@ -1,52 +1,53 @@
 import { lazy } from "react";
 import { SiteRoute } from "../../routes/types";
 import { ButtonGroup } from "src/components/Elements";
+import i18n from "src/translations";
 
 const MAIN_PATH = "/users";
 const ACCESS_MAIN_KEY = "usersManagement";
 
 const userManagementAccessRules = {
-  title: "User Managment",
+  title: i18n.t("User Management")!,
   accessId: ACCESS_MAIN_KEY,
-  description: "List of the users in organization",
+  description: i18n.t("List of the users in organization")!,
   accesses: {
     usersList: {
       accessId: `${ACCESS_MAIN_KEY}/usersList`,
-      title: "All Users List",
-      description: "Viewing the list of users in the organization",
+      title: i18n.t("All Users List")!,
+      description: i18n.t("Viewing the list of users in the organization")!,
     },
     editUser: {
       accessId: `${ACCESS_MAIN_KEY}/editUser`,
-      title: "Edit User Profile",
-      description: "Editing users informations",
+      title: i18n.t("Edit User Profile")!,
+      description: i18n.t("Editing users information")!,
     },
     addUser: {
       accessId: `${ACCESS_MAIN_KEY}/addUser`,
-      title: "Add New User",
-      description: "Adding new users to the organization",
+      title: i18n.t("Add New User")!,
+      description: i18n.t("Adding new users to the organization")!,
     },
     userGroupList: {
       accessId: `${ACCESS_MAIN_KEY}/userGroupsList`,
-      title: "User Groups",
-      description: "Adding new users to the organization",
+      title: i18n.t("User Groups"),
+      description: i18n.t("Adding new users to the organization")!,
     },
     editUserGroup: {
       accessId: `${ACCESS_MAIN_KEY}/editUserGroups`,
-      title: "Edit User Group",
-      description: "Editing users informations",
+      title: i18n.t("Edit User Group")!,
+      description: i18n.t("Editing users information")!,
     },
     addUserGroup: {
       accessId: `${ACCESS_MAIN_KEY}/addUserGroups`,
-      title: "Add New User Group",
-      description: "Adding new users groups to the organization",
+      title: i18n.t("Add New User Group")!,
+      description: i18n.t("Adding new user groups to the organization")!,
     },
   },
 };
 
 export const UserProfile = new SiteRoute({
-  title: "User Profile",
+  title: i18n.t("User Profile")!,
   path: "/profile",
-  description: "Your Profile where you can view or edit your information",
+  description: i18n.t("Your Profile where you can view or edit your information")!,
   component: lazy(() => import("./Profile")),
 });
 
@@ -61,10 +62,17 @@ export const UserGroupsList = new SiteRoute<{}>({
       buttonList={[
         {
           type: "button",
-          title: "All Users",
+          title: i18n.t("All Users")!,
           color: "info",
           icon: <span className="fad fa-user-group" />,
           to: `${MAIN_PATH}/list`,
+        },
+        {
+          type: "button",
+          title: i18n.t("Add User Group")!,
+          color: "green",
+          icon: <span className="fad fa-user-plus" />,
+          to: `${MAIN_PATH}/groups/add`,
         },
       ]}
     />
@@ -83,10 +91,10 @@ export const UserGroupsAdd = new SiteRoute<{}>({
       buttonList={[
         {
           type: "button",
-          title: "All Users",
+          title: i18n.t("All User Groups")!,
           color: "info",
           icon: <span className="fad fa-user-group" />,
-          to: `${MAIN_PATH}/list`,
+          to: `${MAIN_PATH}/${UserGroupsList.path}`,
         },
       ]}
     />
@@ -105,10 +113,17 @@ export const UserGroupsEdit = new SiteRoute<{id: string}>({
       buttonList={[
         {
           type: "button",
-          title: "All Users",
+          title: i18n.t("All User Groups")!,
           color: "info",
           icon: <span className="fad fa-user-group" />,
-          to: `${MAIN_PATH}/list`,
+          to: `${MAIN_PATH}/${UserGroupsList.path}`,
+        },
+        {
+          type: "button",
+          title: i18n.t("Add User Group")!,
+          color: "green",
+          icon: <span className="fad fa-user-plus" />,
+          to: `${MAIN_PATH}${UserGroupsAdd.path}`,
         },
       ]}
     />
@@ -127,7 +142,7 @@ export const AddUser = new SiteRoute<{}>({
       buttonList={[
         {
           type: "button",
-          title: "All Users",
+          title: i18n.t("All Users")!,
           color: "info",
           icon: <span className="fad fa-users" />,
           to: `${MAIN_PATH}/list`,
@@ -149,14 +164,14 @@ export const EditUser = new SiteRoute<{ id: string }>({
       buttonList={[
         {
           type: "button",
-          title: "Add New User",
+          title: i18n.t("Add New User")!,
           color: "green",
           icon: <span className="fad fa-user-plus" />,
           to: `${MAIN_PATH}${AddUser.path}`,
         },
         {
           type: "button",
-          title: "All Users",
+          title: i18n.t("All Users")!,
           color: "info",
           icon: <span className="fad fa-users" />,
           to: `${MAIN_PATH}/list`,
@@ -178,7 +193,7 @@ export const AllUsers = new SiteRoute<{}>({
       buttonList={[
         {
           type: "button",
-          title: "Add New User",
+          title: i18n.t("Add New User")!,
           color: "green",
           icon: <span className="fad fa-user-plus" />,
           to: `${MAIN_PATH}${AddUser.path}`,
@@ -191,7 +206,7 @@ export const AllUsers = new SiteRoute<{}>({
 
 export const UserManagement = new SiteRoute({
   title: userManagementAccessRules.title,
-  description: "List of the users in organization",
+  description: i18n.t("List of the users in organization")!,
   accessId: userManagementAccessRules.accessId,
   path: MAIN_PATH,
   // component: lazy(() => import("./UsersWrapper")),

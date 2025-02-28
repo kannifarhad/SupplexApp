@@ -14,7 +14,7 @@ const Popover = ({ className, trigger, refExit, hide, content, ...providedProps 
         open(false);
       }
     }
-  }, [hide, isOpen, open]);
+  }, [hide, isOpen]);
 
   const handleClick = event => {
     anchorEl.current = event.currentTarget;
@@ -25,18 +25,11 @@ const Popover = ({ className, trigger, refExit, hide, content, ...providedProps 
     open(false);
   };
 
-  const closeIconClass = providedProps.classes.closeIcon;
-  delete providedProps.classes.closeIcon; // remove non-standard class from being passed to the popover component
+  const closeIconClass = providedProps.classes?.closeIcon;
+  delete providedProps.classes?.closeIcon; // Remove non-standard class before spreading props
 
-  const transformOriginSpecs = {
-    vertical: 'top',
-    horizontal: 'center',
-  };
-
-  const anchorOriginSpecs = {
-    vertical: 'bottom',
-    horizontal: 'center',
-  };
+  const transformOriginSpecs = { vertical: 'top', horizontal: 'center' };
+  const anchorOriginSpecs = { vertical: 'bottom', horizontal: 'center' };
 
   const handleOnExit = () => {
     if (refExit) {
@@ -44,8 +37,8 @@ const Popover = ({ className, trigger, refExit, hide, content, ...providedProps 
     }
   };
 
+  // Fix: Remove 'key' from triggerProps and pass it directly to <span>
   const triggerProps = {
-    key: 'content',
     onClick: event => {
       if (trigger.props.onClick) trigger.props.onClick();
       handleClick(event);
@@ -54,7 +47,7 @@ const Popover = ({ className, trigger, refExit, hide, content, ...providedProps 
 
   return (
     <>
-      <span {...triggerProps}>{trigger}</span>
+      <span key="content" {...triggerProps}>{trigger}</span>
       <MuiPopover
         elevation={2}
         open={isOpen}
@@ -69,7 +62,7 @@ const Popover = ({ className, trigger, refExit, hide, content, ...providedProps 
           onClick={handleRequestClose}
           className={closeIconClass}
           style={{ position: 'absolute', right: '4px', top: '4px', zIndex: '1000' }}>
-           <span className="fas fa-times"></span>
+          <span className="fas fa-times"></span>
         </IconButton>
         {content}
       </MuiPopover>

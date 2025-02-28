@@ -4,7 +4,6 @@ import { memo } from "react";
 import UsersListBlock from "./components/UsersList";
 
 function UsersListPage(props) {
-  console.log("props", props)
   return (
     <ContentWrapper {...props}>
       <Grid container>

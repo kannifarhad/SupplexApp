@@ -1,18 +1,19 @@
 import { lazy } from "react";
 import { SiteRoute } from "../../routes/types";
 import { UserRole } from "../../types";
+import i18n from "src/translations";
 
 export const DashboardRoutes = new SiteRoute({
-    title: "Dashboard",
+    title: i18n.t("Dashboard")!,
+    description: i18n.t("Main Page")!,
     path: "/",
-    description: "Main Page",
     component: lazy(() => import("./Dashboard")),
 });
 
 export const Configuration = new SiteRoute({
-    title: "Configuration",
+    title: i18n.t("Configuration")!,
+    description: i18n.t("Configuration of the system")!,
     path: "/config",
-    description: "Configuration of the system",
     component: lazy(() => import("./Configuration")),
     accessRoles: [UserRole.ADMIN, UserRole.CONSUMER],
     showInMenu: true,

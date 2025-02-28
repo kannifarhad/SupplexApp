@@ -44,7 +44,7 @@ export const authSlice = createSlice({
     builder.addMatcher(
       isPending(loginWithCredentials),
       (state, action) => {
-        // state.loading = true;
+        state.loading = true;
       }
     );
     builder.addMatcher(

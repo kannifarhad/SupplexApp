@@ -37,8 +37,8 @@ i18n
       return result;
     }, {}),
     fallbackLng: "en",
-    // debug: true,
-    // saveMissing: true,
+    debug: true,
+    saveMissing: true,
     // have a common namespace used around the full app
     ns: ["translations"],
     defaultNS: "translations",

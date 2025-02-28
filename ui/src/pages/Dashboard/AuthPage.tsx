@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Login from "./components/Login";
 import { Helmet } from "react-helmet-async";
 import { useTranslation, Trans } from "react-i18next";
+import { StyledAuthPage } from "./styled";
 
 const AuthPage: React.FC = () => {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ const AuthPage: React.FC = () => {
         <title>{`${t("Login Panel")} | Cronus Dashboard`}</title>
       </Helmet>
 
-      <div className="wrapper loginWrap">
+      <StyledAuthPage className="wrapper loginWrap">
         <div
           className="loginInfo"
           style={{ backgroundImage: `url('/static/img/loginBg.jpg')` }}
@@ -52,7 +53,7 @@ const AuthPage: React.FC = () => {
             </div>
 
             <div className="cronusInfoFooter">
-              <div className="copyright"> &copy; 2020 Cronus </div>
+              <div className="copyright"> &copy; 2025 Cronus </div>
               <div>
                 <Link to="/terms">
                   <Trans>Privacy</Trans>
@@ -71,7 +72,7 @@ const AuthPage: React.FC = () => {
         <div className="loginPanel">
           <Login />
         </div>
-      </div>
+      </StyledAuthPage>
     </>
   );
 };

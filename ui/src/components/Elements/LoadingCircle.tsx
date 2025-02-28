@@ -35,10 +35,10 @@ const StyledDotCircle = styled.div<{ size: number; color: string }>`
   ${Array.from({ length: 6 })
     .map(
       (_, i) => `
-    .sk-chase-dotcircle:nth-child(${i + 1}) {
+    .sk-chase-dotcircle:nth-of-type(${i + 1}) {
       animation-delay: -${1.1 - i * 0.1}s;
     }
-    .sk-chase-dotcircle:nth-child(${i + 1}):before {
+    .sk-chase-dotcircle:nth-of-type(${i + 1}):before {
       animation-delay: -${1.1 - i * 0.1}s;
     }
   `

@@ -87,7 +87,7 @@ export const StyledSideMenuCont = styled.div<{
           li : {
             borderLeft: `1px solid ${theme.customStyles.sideBar.borderColor}`,
           },
-          "li:first-child" :{
+          "li:first-of-type" :{
             borderLeft: "none",
           },
           ".asideTitle": {
