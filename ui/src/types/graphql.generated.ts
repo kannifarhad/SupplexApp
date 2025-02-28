@@ -56,6 +56,8 @@ export type Mutation = {
   /** Update details of a user (admin only) */
   updateUser: User;
   updateUserOnTeam: UserOnTeam;
+  /** Updates users existing password */
+  updateUserPassword: User;
 };
 
 
@@ -89,6 +91,11 @@ export type MutationUpdateUserArgs = {
 export type MutationUpdateUserOnTeamArgs = {
   input: UpdateUserOnTeamsInput;
   where: UserOnTeamWhereUniqueInput;
+};
+
+
+export type MutationUpdateUserPasswordArgs = {
+  input: UpdateUserPasswordInput;
 };
 
 export type Query = {
@@ -142,6 +149,11 @@ export type UpdateUserOnTeamsInput = {
   role?: InputMaybe<TeamsUserRole>;
 };
 
+export type UpdateUserPasswordInput = {
+  password: Scalars['String']['input'];
+  previousPassword: Scalars['String']['input'];
+};
+
 export type User = {
   address?: Maybe<Scalars['String']['output']>;
   createdAt: Scalars['DateTime']['output'];
@@ -189,7 +201,7 @@ export type UserWhereUniqueInput = {
   id: Scalars['ID']['input'];
 };
 
-export type UserFieldsFragment = { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole };
+export type UserFieldsFragmentFragment = { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole };
 
 export type UserSingleFieldsFragment = { id: string, email: string, firstname: string, lastname: string, photo?: string | null, address?: string | null, location?: string | null, phone?: string | null, role: UserRole, status: UserStatus };
 
@@ -209,3 +221,8 @@ export type RefreshTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RefreshTokenMutation = { refreshToken: { token: string, user: { id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole } } };
+
+export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UsersQuery = { users: Array<{ id: string, email: string, firstname: string, photo?: string | null, lastname: string, role: UserRole }> };

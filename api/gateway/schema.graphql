@@ -73,6 +73,9 @@ type Mutation {
   """Update details of a user (admin only)"""
   updateUser(input: UpdateUserInput!, where: UserWhereUniqueInput!): User! @join__field(graph: MAIN)
   updateUserOnTeam(input: UpdateUserOnTeamsInput!, where: UserOnTeamWhereUniqueInput!): UserOnTeam! @join__field(graph: MAIN)
+
+  """Updates users existing password"""
+  updateUserPassword(input: UpdateUserPasswordInput!): User! @join__field(graph: MAIN)
 }
 
 type Query {
@@ -124,6 +127,11 @@ input UpdateUserInput {
 
 input UpdateUserOnTeamsInput {
   role: TeamsUserRole
+}
+
+input UpdateUserPasswordInput {
+  password: String!
+  previousPassword: String!
 }
 
 type User

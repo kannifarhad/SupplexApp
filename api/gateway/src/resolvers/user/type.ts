@@ -74,6 +74,14 @@ export class CreateUserInput {
 }
 
 @InputType()
+export class UpdateUserPasswordInput {
+	@Field((_) => String)
+	previousPassword: string;
+	@Field((_) => String)
+	password: string;
+}
+
+@InputType()
 export class SetUserDefaultProjectInput {
 	@Field((_) => ID, { description: "Id of default project" })
 	projectId: string;

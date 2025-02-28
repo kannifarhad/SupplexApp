@@ -1,4 +1,4 @@
-import { Schema, object, string } from "yup";
+import { object, string, ObjectSchema } from "yup";
 import { useNavigate } from "react-router";
 import { Trans, useTranslation } from "react-i18next";
 import i18n, { LangList } from "src/translations";
@@ -16,7 +16,7 @@ const defaultValues: LoginInput = {
   password: "",
 };
 
-const loginSchema: Schema<LoginInput> = object().shape({
+const loginSchema: ObjectSchema<LoginInput> = object().shape({
   email: string().min(4, i18n.t("Login must contain at least 4 characters").toString()).required(i18n.t("Name is required").toString()),
   password: string().min(6, i18n.t("Password must contain at least 6 characters").toString()).required(i18n.t("Enter your password").toString()),
 });
